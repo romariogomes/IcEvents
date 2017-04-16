@@ -11,7 +11,9 @@
 	<form action="usuario/cadastro" method="post">
 		Nome<input type="text" name="nome">
 		Email<input type="text" name="email">
-		Senha<input type="text" name="senha">
+		Senha<input type="password" name="senha">
+		Confirme sua senha<input type="password" name="confsenha">
+		
 		
 		<input type="submit" value="enviar">
 	</form>

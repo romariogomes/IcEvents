@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Pessoa;
+import model.Tipo;
 import persistence.PessoaDao;
+import sun.misc.BASE64Encoder;
 
 @WebServlet("/PessoaController")
 public class PessoaController extends HttpServlet {
@@ -30,6 +34,7 @@ public class PessoaController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		verificarUrl(request, response);
 	}
+	
 	protected void verificarUrl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getServletPath();
 		
@@ -61,11 +66,28 @@ public class PessoaController extends HttpServlet {
 	
 	protected void cadastrarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Pessoa p = new Pessoa(null, request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), null);
+		String senha = request.getParameter("senha");
+		String confirmacaoSenha = request.getParameter("confsenha");
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 			
-			daoPessoa.inserir(p);
+			if (senha.equals(confirmacaoSenha)) {
+				
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				byte[] crip = md.digest(confirmacaoSenha.getBytes());
+				BASE64Encoder enc = new BASE64Encoder();
+				
+				Pessoa p = new Pessoa(null, request.getParameter("nome"), request.getParameter("email"), enc.encode(crip), null);
+				
+				if (sessao.getAttribute("user") == null) {
+					p.setTipo(Tipo.PARTICIPANTE);
+				}
+				
+				daoPessoa.inserir(p);
+				
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

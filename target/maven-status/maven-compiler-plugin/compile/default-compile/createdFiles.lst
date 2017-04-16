@@ -1,5 +1,7 @@
+controller/ControleAcesso.class
 persistence/HibernateUtil.class
 model/Tipo.class
 persistence/PessoaDao.class
 model/Pessoa.class
+persistence/ControleAcessoDAO.class
 controller/PessoaController.class
