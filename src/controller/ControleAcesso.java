@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import model.Pessoa;
 import persistence.ControleAcessoDAO;
-import persistence.PessoaDao;
 import sun.misc.BASE64Encoder;
 
 @WebServlet("/ControleAcesso")

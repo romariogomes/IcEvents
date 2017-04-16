@@ -1,7 +1,5 @@
 package persistence;
 
-import java.io.Serializable;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
