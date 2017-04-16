@@ -41,7 +41,7 @@ public class PessoaDao{
 		t = s.beginTransaction();
 		
 		@SuppressWarnings("unchecked")
-		List<Pessoa> listaPessoas = s.createQuery("FROM pessoa").list();
+		List<Pessoa> listaPessoas = s.createCriteria(Pessoa.class).list();
 		s.close();
 		
 		return listaPessoas;
@@ -53,6 +53,7 @@ public class PessoaDao{
 		s = HibernateUtil.getSessionFactory().openSession();
 		t = s.beginTransaction();
 		s.update(p);
+		t.commit();
 		s.close();
 		
 	}
@@ -62,6 +63,7 @@ public class PessoaDao{
 		s = HibernateUtil.getSessionFactory().openSession();
 		t = s.beginTransaction();
 		s.delete(p);
+		t.commit();
 		s.close();
 		
 	}

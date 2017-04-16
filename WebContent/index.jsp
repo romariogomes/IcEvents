@@ -3,6 +3,7 @@
 <h2>Hello World!</h2>
 
 <a href="cadastro.jsp">Cadastrar</a>
+<a href="usuario/lista">Listar</a>
 
 <form method="post" action="usuario/busca?usuario=codUsuario">
 	<input type="text" name="codUsuario">

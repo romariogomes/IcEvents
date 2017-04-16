@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,16 +36,25 @@ public class PessoaController extends HttpServlet {
 		if (daoPessoa == null) {
 			daoPessoa = new PessoaDao();
 		}
-		
-		if (url.equals("/usuario/busca")){
-			
-			consultarUsuario(request, response);
-			
+
+		if (url.equals("/usuario/cadastro")){
+			cadastrarUsuario(request, response);
 		}
 		
-		if (url.equals("/usuario/cadastro")){
-			System.out.println(url);
-			cadastrarUsuario(request, response);
+		if (url.equals("/usuario/busca")){
+			consultarUsuario(request, response);
+		}
+		
+		if (url.equals("/usuario/lista")){
+			listarUsuarios(request, response);
+		}
+		
+		if (url.equals("/usuario/atualizar")){
+			atualizarUsuario(request, response);
+		}
+		
+		if (url.equals("/usuario/remover")){
+			removerUsuario(request, response);
 		}
 		
 	}
@@ -52,25 +64,75 @@ public class PessoaController extends HttpServlet {
 		Pessoa p = new Pessoa(null, request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), null);
 		
 		try {
+			
 			daoPessoa.inserir(p);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		request.getRequestDispatcher("../index.jsp").forward(request, response);
 	}
 	
 	protected void consultarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 		
-			Integer codigo = Integer.parseInt(request.getParameter("codUsuario"));
+			Integer codigo = Integer.parseInt(request.getParameter("usuario"));
 			Pessoa p = daoPessoa.buscarPorId(codigo);
-			request.getSession().setAttribute("pessoa", p);
+			request.setAttribute("pessoa", p);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		request.getRequestDispatcher("../show_user.jsp").forward(request, response);
+	}
+	
+	protected void listarUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+		
+			List<Pessoa> usuarios = new ArrayList<Pessoa>();
+			usuarios = daoPessoa.listarTodos();
+			request.getSession().setAttribute("listaUsuarios", usuarios);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("../listusers.jsp").forward(request, response);
+	}
+	
+	protected void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		Pessoa p = new Pessoa(Integer.parseInt(request.getParameter("usuario")), request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), null);
+		
+		try {
+			
+			daoPessoa.atualizar(p);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("/lista").forward(request, response);
+	}
+
+	protected void removerUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			
+			Integer codigo = Integer.parseInt(request.getParameter("usuario"));
+			Pessoa p = daoPessoa.buscarPorId(codigo);
+			daoPessoa.remover(p);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("../index.jsp").forward(request, response);
 	}
 
 
