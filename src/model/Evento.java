@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,6 +28,10 @@ public class Evento {
 	
 	@Column
 	private String descricao;
+	
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	private TipoEvento tipoEvento;
 	
 	@ManyToMany
 	@JoinTable(name = "palestra", joinColumns={@JoinColumn(name = "evento_id")}, inverseJoinColumns={@JoinColumn(name = "palestrante_id")})
@@ -68,6 +74,14 @@ public class Evento {
 		this.descricao = descricao;
 		this.palestrantes = new ArrayList<Palestrante>();
 	}
+	
+	public Evento(Integer codigoEvento, String tema, String descricao, TipoEvento tipoEvento) {
+		super();
+		this.codigoEvento = codigoEvento;
+		this.tema = tema;
+		this.descricao = descricao;
+		this.tipoEvento = tipoEvento;
+	}
 
 	public Evento(Integer codigoEvento, String tema, String descricao) {
 		super();
@@ -98,6 +112,14 @@ public class Evento {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public TipoEvento getTipoEvento() {
+		return tipoEvento;
+	}
+
+	public void setTipoEvento(TipoEvento tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 	public List<Palestrante> getPalestrantes() {
@@ -134,9 +156,9 @@ public class Evento {
 
 	@Override
 	public String toString() {
-		return "Evento [codigoEvento=" + codigoEvento + ", tema=" + tema + ", descricao=" + descricao
-				+ ", palestrantes=" + palestrantes + ", participantes=" + participantes + ", organizadores="
-				+ organizadores + ", reservas=" + reservas + "]";
+		return "Evento [codigoEvento=" + codigoEvento + ", tema=" + tema + ", descricao=" + descricao + ", tipoEvento="
+				+ tipoEvento + ", palestrantes=" + palestrantes + ", participantes=" + participantes
+				+ ", organizadores=" + organizadores + ", reservas=" + reservas + "]";
 	}
 
 }
