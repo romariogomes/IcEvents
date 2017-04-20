@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" >
+      
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">Cadastro</ui:define>
+		
+		<ui:define name="content">
+			
+			
+			<form class="form-group" role="search" method="post" action="cadastrarautor">
+		
+		
+			<div class="row">
+			
+	        	<div class="col-md-6">
+	        		<div class="form-group">
+	        			<label for="inputNome">Nome</label>
+	        			<input id="inputNome" type="text" class="form-control" name="nome" required="required" placeholder="Nome completo" />	        			
+	    			</div>
+	            </div>
+	       
+			</div>
+			
+	         <div class="row">       
+	       
+	        	<div class="col-md-3">
+	        		<div class="form-group">
+	        			<label for="inputNacionalidade">Email</label>
+	        			<input id="inputNacionalidade" type="text" class="form-control" name="nacionalidade" required="required" />
+	    			</div>
+	            </div>
+	          
+	         </div>
+	         
+	         <div class="row">       
+	       
+	        	<div class="col-md-3">
+	        		<div class="form-group">
+	        			<label for="inputSenha">Senha</label>
+	        			<input id="inputSenha" type="password" class="form-control" name="senha" required="required" />
+	    			</div>
+	            </div>
+	          
+	         </div>
+	         
+	         <div class="row">       
+	       
+	        	<div class="col-md-3">
+	        		<div class="form-group">
+	        			<label for="inputConfSenha">Confirme sua senha</label>
+	        			<input id="inputConfSenha" type="password" class="form-control" name="cofsenha" required="required" />
+	    			</div>
+	            </div>
+	          
+	         </div>
+	         
+	         <button type="submit" class="btn btn-primary">Cadastrar</button>
+	              	
+        </form>
+			
+			HAHA
+			<h:form action="usuario/cadastro" method="post">
+				
+				Nome<input type="text" name="nome" ></input>
+				Email<input type="text" name="email"></input>
+				Senha<input type="password" name="senha"></input>
+				Confirme sua senha<input type="password" name="confsenha"> </input>
+				
+				
+				<input type="submit" value="enviar"> </input>
+			</h:form>
+		
+		</ui:define>
+		
+		
+	</ui:composition>
+	
+</html>
