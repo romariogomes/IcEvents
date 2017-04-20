@@ -9,6 +9,7 @@ model/Participante.class
 controller/PessoaController.class
 model/Evento.class
 model/Reserva.class
+model/TipoEvento.class
 model/Sala.class
 persistence/HibernateUtil.class
 model/Recurso.class

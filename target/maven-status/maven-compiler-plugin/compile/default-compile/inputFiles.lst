@@ -10,6 +10,7 @@
 /Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/model/Organizador.java
 /Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/persistence/ControleAcessoDAO.java
 /Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/model/Sala.java
+/Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/model/TipoEvento.java
 /Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/model/Reserva.java
 /Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/persistence/HibernateUtil.java
 /Users/romario.curcio/Documents/projetos/estudos/IcEvents/src/controller/RecursoController.java
