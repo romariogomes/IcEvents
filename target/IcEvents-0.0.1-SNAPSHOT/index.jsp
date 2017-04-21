@@ -2,7 +2,7 @@
 <body>
 <h2>Hello World!</h2>
 
-<a href="cadastro.xhtml">Cadastrar</a>
+<a href="/faces/cadastro.xhtml">Cadastrar</a>
 <a href="usuario/lista">Listar</a>
 
 <form method="post" action="usuario/busca?usuario=codUsuario">
@@ -15,5 +15,7 @@
 	Senha<input type="text" name="senha">
 	<input type="submit" value="Logar">
 </form>
+
+
 </body>
 </html>
