@@ -10,62 +10,56 @@
 		
 		<ui:define name="content">
 			
-			
-			
-			
-			<form class="form-group" role="search" method="post" action="cadastrarautor">
-			
-			
+			<form class="form-group" method="post" action="cadastrarautor">
 		
-			<div class="row">
-			
-	        	<div class="col-md-4">
-	        		<div class="form-group">
-	        			<label for="inputNome">Nome</label>
-	        			<input id="inputNome" type="text" class="form-control" name="nome" required="required" placeholder="Nome completo" />	        			
-	    			</div>
-	            </div>
-	       
-			</div>
-			
-	         <div class="row">       
-	       
-	        	<div class="col-md-3">
-	        		<div class="form-group">
-	        			<label for="inputNacionalidade">Email</label>
-	        			<input id="inputNacionalidade" type="text" class="form-control" name="nacionalidade" required="required" />
-	    			</div>
-	            </div>
-	          
-	         </div>
-	         
-	         <div class="row">       
-	       
-	        	<div class="col-md-3">
-	        		<div class="form-group">
-	        			<label for="inputSenha">Senha</label>
-	        			<input id="inputSenha" type="password" class="form-control" name="senha" required="required" />
-	    			</div>
-	            </div>
-	          
-	         </div>
-	         
-	         <div class="row">       
-	       
-	        	<div class="col-md-3">
-	        		<div class="form-group">
-	        			<label for="inputConfSenha">Confirme sua senha</label>
-	        			<input id="inputConfSenha" type="password" class="form-control" name="cofsenha" required="required" />
-	    			</div>
-	            </div>
-	          
-	         </div>
-	         
-	         <button type="submit" class="btn btn-primary">Cadastrar</button>
+				<div class="row">
+				
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputNome">Nome</label>
+		        			<input id="inputNome" type="text" class="form-control" name="nome" required="required" placeholder="Nome completo" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+		         <div class="row">       
+		       
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputEmail">Email</label>
+		        			<input id="inputEmail" type="text" class="form-control" name="email" required="required" placeholder="E-mail" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <div class="row">       
+		       
+		        	<div class="col-md-3">
+		        		<div class="form-group">
+		        			<label for="inputSenha">Senha</label>
+		        			<input id="inputSenha" type="password" class="form-control" name="senha" required="required" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <div class="row">       
+		       
+		        	<div class="col-md-3">
+		        		<div class="form-group">
+		        			<label for="inputConfSenha">Confirme sua senha</label>
+		        			<input id="inputConfSenha" type="password" class="form-control" name="confsenha" required="required" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <button type="submit" class="btn btn-primary">Cadastrar</button>
 	             	
-        </form>
+        	</form>
 			
-			HAHA
 			<h:form action="usuario/cadastro" method="post">
 				
 				Nome<input type="text" name="nome" ></input>
@@ -78,7 +72,6 @@
 			</h:form>
 		
 		</ui:define>
-		
 		
 	</ui:composition>
 	
