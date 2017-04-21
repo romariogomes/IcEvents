@@ -21,3 +21,12 @@
 	text-align: center;
 	color: #777;
 }
+
+#popinLogin {
+	margin: 0 -2px 0 -258px;
+}
+
+#loginform {
+	margin-right: 10px;
+    margin-left: 10px;
+}
