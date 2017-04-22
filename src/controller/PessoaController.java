@@ -62,6 +62,9 @@ public class PessoaController extends HttpServlet {
 			removerUsuario(request, response);
 		}
 		
+		if (url.equals("/usuario/editarDados")){
+			editarDadosUsuario(request, response);
+		}
 	}
 	
 	protected void cadastrarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,7 +97,7 @@ public class PessoaController extends HttpServlet {
 		}
 		
 		response.sendRedirect("../index.xhtml");
-//		request.getRequestDispatcher("../index.xhtml").forward(request, response);
+
 	}
 	
 	protected void consultarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -129,7 +132,6 @@ public class PessoaController extends HttpServlet {
 	
 	protected void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		Pessoa p = new Pessoa(Integer.parseInt(request.getParameter("usuario")), request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), null);
 		
 		try {
@@ -157,6 +159,23 @@ public class PessoaController extends HttpServlet {
 		
 		request.getRequestDispatcher("../index.jsp").forward(request, response);
 	}
+	
+	protected void editarDadosUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		try {
+		
+			Pessoa p = (Pessoa) sessao.getAttribute("user");
+			p.setNome(request.getParameter("nome"));
+			p.setEmail(request.getParameter("email"));
+			daoPessoa.atualizar(p);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("../index.xhtml");
+	}
 
 }

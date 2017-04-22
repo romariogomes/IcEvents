@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" >
+      
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">Editar dados</ui:define>
+		
+		<ui:define name="content">
+			
+			<form class="form-group" method="post" action="usuario/editarDados">
+		
+				<div class="row">
+				
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputNome">Nome</label>
+		        			<input id="inputNome" type="text" class="form-control" name="nome" required="required" placeholder="Nome completo" value="${user.nome}" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+		         <div class="row">       
+		       
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputEmail">Email</label>
+		        			<input id="inputEmail" type="text" class="form-control" name="email" required="required" placeholder="E-mail" value="${user.email}" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <button type="submit" class="btn btn-primary">Salvar</button>
+	             	
+        	</form>
+		
+		</ui:define>
+		
+	</ui:composition>
+	
+</html>

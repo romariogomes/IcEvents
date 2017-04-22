@@ -69,8 +69,6 @@ public class ControleAcesso extends HttpServlet {
 				HttpSession sessao = request.getSession();
 				sessao.setAttribute("user", p); 
 				
-				response.sendRedirect("index.jsp");
-				
 			} else {
 				
 				request.setAttribute("msg", "Login ou senha incorretos!");
@@ -82,7 +80,7 @@ public class ControleAcesso extends HttpServlet {
 			request.setAttribute("msg", "Erro: " + e.getMessage());
 		}
 		
-		response.sendRedirect("../index.xhtml");
+		response.sendRedirect("index.xhtml");
 		
 	}
 
@@ -107,7 +105,7 @@ public class ControleAcesso extends HttpServlet {
 			request.setAttribute("msg", "Erro: " + e.getMessage());
 		}
 		
-		response.sendRedirect("../index.xhtml");
+		response.sendRedirect("index.xhtml");
 		
 	}
 }
