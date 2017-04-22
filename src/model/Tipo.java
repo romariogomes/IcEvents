@@ -2,7 +2,7 @@ package model;
 
 public enum Tipo {
 
-	ADMIN(1), ORGANIZADOR(2), PARTICIPANTE(3);
+	ADMIN(0), ORGANIZADOR(1), PARTICIPANTE(2);
 	
 	private Integer codigoTipo;
 
