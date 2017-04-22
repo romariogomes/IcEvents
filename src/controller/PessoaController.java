@@ -108,6 +108,8 @@ public class PessoaController extends HttpServlet {
 
 	}
 	
+	/* Método para editar os dados de usuários, logado como ADMIN*/
+	
 	protected void consultarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
@@ -167,6 +169,9 @@ public class PessoaController extends HttpServlet {
 		
 		request.getRequestDispatcher("../index.jsp").forward(request, response);
 	}
+	
+	
+	/* Método para editar os dados do usuário logado*/
 	
 	protected void editarDadosUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
