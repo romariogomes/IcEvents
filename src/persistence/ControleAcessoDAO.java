@@ -19,11 +19,8 @@ public class ControleAcessoDAO {
 		s = HibernateUtil.getSessionFactory().openSession();
 		
 		Criteria c = s.createCriteria(Pessoa.class);
-		c.add(Restrictions.eq("email", email));
-		
+		c.add(Restrictions.and(Restrictions.eq("email", email), Restrictions.eq("senha", senha)));
 		p = (Pessoa) c.uniqueResult();
-		
-		s.close();
 		
 		return p;
 		
