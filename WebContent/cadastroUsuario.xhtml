@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html" >
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
       
 	<ui:composition template="template.xhtml">
 	
@@ -55,21 +56,25 @@
 		            </div>
 		          
 		         </div>
+		         	
+		         <c:if test="${user.tipo == 'ADMIN'}">
+		         	<div class="row">  
+		         		<div class="col-md-3">     
+			       			<div class="form-group">
+							  <label for="sel1">Tipo</label>
+							  <select class="form-control" name="tipo">
+							    <option>ADMIN</option>
+							    <option>ORGANIZADOR</option>
+							    <option>PARTICIPANTE</option>
+							  </select>
+							</div>
+						</div>
+		         	</div>	
+		         </c:if>
 		         
 		         <button type="submit" class="btn btn-primary">Cadastrar</button>
 	             	
         	</form>
-			
-			<h:form action="usuario/cadastro" method="post">
-				
-				Nome<input type="text" name="nome" ></input>
-				Email<input type="text" name="email"></input>
-				Senha<input type="password" name="senha"></input>
-				Confirme sua senha<input type="password" name="confsenha"> </input>
-				
-				
-				<input type="submit" value="enviar"> </input>
-			</h:form>
 		
 		</ui:define>
 		

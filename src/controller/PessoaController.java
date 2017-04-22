@@ -86,6 +86,14 @@ public class PessoaController extends HttpServlet {
 				
 				if (sessao.getAttribute("user") == null) {
 					p.setTipo(Tipo.PARTICIPANTE);
+					
+				} else {
+					
+					Pessoa userSessao = (Pessoa) sessao.getAttribute("user"); 
+					if (userSessao.getTipo().equals(Tipo.ADMIN)) {
+						p.setTipo(Tipo.valueOf(request.getParameter("tipo")));
+					}
+					
 				}
 				
 				daoPessoa.inserir(p);
