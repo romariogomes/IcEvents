@@ -36,7 +36,7 @@
 				      <ul class="nav nav-tabs">
 				        <li><a href="#">Home</a></li>
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos<span class="caret"></span></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span></a>
 				          <ul class="dropdown-menu">
 				            <li><a href="#">Calendário</a></li>
 				            <li><a href="#">Criar evento</a></li>
@@ -58,9 +58,9 @@
 									<ul class="nav navbar-nav">
 								    	
 								        <li class="dropdown">
-								          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login<span class="caret"></span></a>
+								          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
 								        	<ul class="dropdown-menu" id="popinLogin">
-									            <form id="loginform" class="form-horizontal" role="form" action="loginbyhome" method="post"> <br /><span>${msg}</span>      
+									            <form id="loginform" class="form-horizontal" role="form" action="login" method="post"> <br />      
 									                <div style="margin-bottom: 25px" class="input-group">
 									                	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 									                	<input id="login-username" type="text" class="form-control" name="email" value="" placeholder="E-mail" />                                        
@@ -82,7 +82,7 @@
 									                    <div class="col-md-12 control">
 									                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
 									                                Não possui conta? 
-									                           <a href="usuariocontrolecad" onClick="$('#loginbox').hide(); $('#signupbox').show()">Cadastre-se aqui! </a>
+									                           <a href="cadastroUsuario.xhtml" onClick="$('#loginbox').hide(); $('#signupbox').show()">Cadastre-se aqui! </a>
 									                        </div>
 									                    </div>
 									                </div> 
@@ -95,7 +95,7 @@
 							
 								<c:otherwise>
 									<li class="dropdown">
-									  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos<span class="caret"></span></a>
+									  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Olá ${user.nome} <span class="caret"></span></a>
 									  <ul class="dropdown-menu">
 									    <li><a href="#">Calendário</a></li>
 									    <li><a href="#">Criar evento</a></li>
@@ -103,7 +103,7 @@
 									    <li role="separator" class="divider"></li>
 									    <li><a href="#">Separated link</a></li>
 									    <li role="separator" class="divider"></li>
-									    <li><a href="#">One more separated link</a></li>
+									    <li><a href="logout">Logout</a></li>
 									  </ul>
 									</li>
 								</c:otherwise>
