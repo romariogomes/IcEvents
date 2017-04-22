@@ -93,7 +93,8 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../index.jsp").forward(request, response);
+		response.sendRedirect("../index.xhtml");
+//		request.getRequestDispatcher("../index.xhtml").forward(request, response);
 	}
 	
 	protected void consultarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

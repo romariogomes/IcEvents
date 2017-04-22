@@ -82,6 +82,8 @@ public class ControleAcesso extends HttpServlet {
 			request.setAttribute("msg", "Erro: " + e.getMessage());
 		}
 		
+		response.sendRedirect("../index.xhtml");
+		
 	}
 
 	protected void logoutUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,7 +107,7 @@ public class ControleAcesso extends HttpServlet {
 			request.setAttribute("msg", "Erro: " + e.getMessage());
 		}
 		
-		response.sendRedirect("../index.jsp");
+		response.sendRedirect("../index.xhtml");
 		
 	}
 }
