@@ -107,8 +107,8 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
-		request.getRequestDispatcher(pagina).forward(request, response);
+		response.sendRedirect(pagina);
+//		request.getRequestDispatcher(pagina).forward(request, response);
 
 	}
 	

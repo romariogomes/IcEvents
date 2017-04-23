@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Recurso;
 import persistence.RecursoDao;
@@ -62,9 +63,11 @@ public class RecursoController extends HttpServlet {
 	
 	protected void cadastrarRecurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession sessao = request.getSession();
+		
 		try {
 			
-			Recurso r = new Recurso(Integer.parseInt(request.getParameter("recurso")), request.getParameter("descricao"));
+			Recurso r = new Recurso(null, request.getParameter("descricao"));
 			
 			daoRecurso.inserir(r);
 				
@@ -72,11 +75,13 @@ public class RecursoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../index.jsp").forward(request, response);
+		response.sendRedirect("lista");
 	}
 	
 	protected void consultarRecurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession sessao = request.getSession();
+
 		try {
 		
 			Integer codigo = Integer.parseInt(request.getParameter("recurso"));
@@ -87,10 +92,12 @@ public class RecursoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../show_user.jsp").forward(request, response);
+		request.getRequestDispatcher("../listarRecurso.xhtml").forward(request, response);
 	}
 	
 	protected void listarRecursos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 		
@@ -102,25 +109,30 @@ public class RecursoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../listusers.jsp").forward(request, response);
+		response.sendRedirect("../listarRecursos.xhtml");
 	}
 	
 	protected void atualizarRecurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Recurso r = new Recurso(Integer.parseInt(request.getParameter("recurso")), request.getParameter("descricao"));
+		HttpSession sessao = request.getSession();
 		
 		try {
 			
+			Recurso r = daoRecurso.buscarPorId(Integer.parseInt(request.getParameter("recurso")));
+			
+			r.setDescricao(request.getParameter("descricao"));
 			daoRecurso.atualizar(r);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/lista").forward(request, response);
+		response.sendRedirect("lista");
 	}
 
 	protected void removerRecurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 			
@@ -132,7 +144,7 @@ public class RecursoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../index.jsp").forward(request, response);
+		response.sendRedirect("lista");
 	}
 
 }

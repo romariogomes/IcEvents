@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" >
+      
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">IC-Events - Editar recurso</ui:define>
+		
+		<ui:define name="content">
+		
+			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../css/project.css" rel="stylesheet" />
+		
+			<form class="form-group" method="post" action="atualizar?recurso=${recurso.codigoRecurso}">
+				
+				<div class="row">
+				
+		        	<div class="col-md-1">
+		        		<div class="form-group">
+		        			<label for="inputCodigo">Código</label>
+		        			<input id="inputCodigo" type="text" class="form-control" name="codigo" disabled="disabled" value="${recurso.codigoRecurso}" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+				<div class="row">
+				
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputDescricao">Descrição</label>
+		        			<input id="inputDescricao" type="text" class="form-control" name="descricao" required="required" placeholder="Descrição do recurso" value="${recurso.descricao}" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+					         
+		         <button type="submit" class="btn btn-primary">Salvar</button>
+	             	
+        	</form>
+		
+		</ui:define>
+		
+	</ui:composition>
+	
+</html>

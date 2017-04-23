@@ -15,6 +15,11 @@
 		<property name="hbm2ddl.auto">update</property>
 		
 		<mapping class="model.Pessoa" />
+		<mapping class="model.Recurso" />
+		<mapping class="model.Sala" />
+		<mapping class="model.Reserva" />
+		<mapping class="model.Evento" />
+		<mapping class="model.Palestrante" />
 		
 	</session-factory>
 </hibernate-configuration>
