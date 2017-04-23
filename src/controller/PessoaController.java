@@ -94,7 +94,7 @@ public class PessoaController extends HttpServlet {
 					Pessoa userSessao = (Pessoa) sessao.getAttribute("user"); 
 					if (userSessao.getTipo().equals(Tipo.ADMIN)) {
 						p.setTipo(Tipo.valueOf(request.getParameter("tipo")));
-						pagina = "../listarUsuarios.xhtml";
+						pagina = "lista";
 					}
 					
 				}
@@ -108,7 +108,7 @@ public class PessoaController extends HttpServlet {
 		}
 		
 		
-		response.sendRedirect(pagina);
+		request.getRequestDispatcher(pagina).forward(request, response);
 
 	}
 	
@@ -183,7 +183,7 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../index.jsp").forward(request, response);
+		response.sendRedirect("lista");
 	}
 	
 	
