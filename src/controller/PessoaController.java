@@ -144,7 +144,13 @@ public class PessoaController extends HttpServlet {
 	protected void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			Pessoa p = new Pessoa(Integer.parseInt(request.getParameter("usuario")), request.getParameter("nome"), request.getParameter("email"), Tipo.valueOf(request.getParameter("tipo")));
+			
+			Pessoa p = daoPessoa.buscarPorId(Integer.parseInt(request.getParameter("usuario"))); 
+			
+			p.setNome(request.getParameter("nome"));
+			p.setEmail(request.getParameter("email"));
+			p.setTipo(Tipo.valueOf(request.getParameter("tipo")));
+			
 			daoPessoa.atualizar(p);
 			
 		} catch (Exception e) {
