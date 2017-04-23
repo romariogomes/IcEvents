@@ -41,6 +41,14 @@ public class Pessoa {
 		this.senha = senha;
 		this.tipo = tipo;
 	}
+	
+	public Pessoa(Integer codigoPessoa, String nome, String email, Tipo tipo) {
+		super();
+		this.codigoPessoa = codigoPessoa;
+		this.nome = nome;
+		this.email = email;
+		this.tipo = tipo;
+	}
 
 	public Integer getCodigoPessoa() {
 		return codigoPessoa;
