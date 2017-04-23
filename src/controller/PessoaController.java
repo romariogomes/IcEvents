@@ -71,6 +71,7 @@ public class PessoaController extends HttpServlet {
 		
 		String senha = request.getParameter("senha");
 		String confirmacaoSenha = request.getParameter("confsenha");
+		String pagina = new String();
 		
 		HttpSession sessao = request.getSession();
 		
@@ -86,12 +87,14 @@ public class PessoaController extends HttpServlet {
 				
 				if (sessao.getAttribute("user") == null) {
 					p.setTipo(Tipo.PARTICIPANTE);
+					pagina = "../index.xhtml";
 					
 				} else {
 					
 					Pessoa userSessao = (Pessoa) sessao.getAttribute("user"); 
 					if (userSessao.getTipo().equals(Tipo.ADMIN)) {
 						p.setTipo(Tipo.valueOf(request.getParameter("tipo")));
+						pagina = "../listarUsuarios.xhtml";
 					}
 					
 				}
@@ -104,13 +107,16 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("../index.xhtml");
+		
+		response.sendRedirect(pagina);
 
 	}
 	
 	/* Método para editar os dados de usuários, logado como ADMIN*/
 	
 	protected void consultarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 		
@@ -122,11 +128,12 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-//		response.sendRedirect("../listarUsuario_Admin.xhtml");
 		request.getRequestDispatcher("../listarUsuario_Admin.xhtml").forward(request, response);
 	}
 	
 	protected void listarUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 		
@@ -142,6 +149,8 @@ public class PessoaController extends HttpServlet {
 	}
 	
 	protected void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 			
@@ -161,6 +170,8 @@ public class PessoaController extends HttpServlet {
 	}
 
 	protected void removerUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		try {
 			

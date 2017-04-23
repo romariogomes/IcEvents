@@ -17,7 +17,7 @@
 					<th id="codigoPessoaTbl">Código</th>
 					<th id="nomePessoaTbl">Nome</th>
 					<th id="emailPessoaTbl">E-mail</th>
-					<th></th>
+					<th>Tipo</th>
 					<th></th>
 				</tr>
 				
@@ -27,7 +27,8 @@
 						<td id="codigoPessoaTbl">${u.codigoPessoa}</td>
 						<td id="nomePessoaTbl">${u.nome}</td>
 						<td id="emailPessoaTbl">${u.email}</td>
-						<td><a href="usuario/busca?usuario=${u.codigoPessoa}"><button type="button" class="btn btn-default">Alterar</button></a> &nbsp; &nbsp;
+						<td>${u.tipo}</td>
+						<td><a href="usuario/busca?usuario=${u.codigoPessoa}"><button type="button" class="btn btn-default">Alterar dados</button></a> &nbsp; &nbsp;
 	    					<a href="usuario/remover?usuario=${u.codigoPessoa}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></a>
 	    				</td>
 					</tr>
