@@ -30,3 +30,17 @@
 	margin-right: 10px;
     margin-left: 10px;
 }
+
+#codigoPessoaTbl {
+	width: 90px;
+}
+
+#nomePessoaTbl {
+	width: 315px;
+}
+
+#emailPessoaTbl {
+	width: 350px;
+}
+
+

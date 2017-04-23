@@ -10,8 +10,22 @@
 		
 		<ui:define name="content">
 			
-			<form class="form-group" method="post" action="usuario/editarDados">
+			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../css/project.css" rel="stylesheet" />
 		
+			<form class="form-group" method="post" action="atualizar?usuario=${pessoa.codigoPessoa}">
+				
+				<div class="row">
+				
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputCodigo">Código</label>
+		        			<input id="inputCodigo" type="text" class="form-control" name="codigo" disabled="disabled" value="${pessoa.codigoPessoa}" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
 				<div class="row">
 				
 		        	<div class="col-md-4">

@@ -122,7 +122,8 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../show_user.jsp").forward(request, response);
+//		response.sendRedirect("../listarUsuario_Admin.xhtml");
+		request.getRequestDispatcher("../listarUsuario_Admin.xhtml").forward(request, response);
 	}
 	
 	protected void listarUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -137,22 +138,20 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../listusers.jsp").forward(request, response);
+		response.sendRedirect("../listarUsuarios.xhtml");
 	}
 	
 	protected void atualizarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Pessoa p = new Pessoa(Integer.parseInt(request.getParameter("usuario")), request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), null);
-		
 		try {
-			
+			Pessoa p = new Pessoa(Integer.parseInt(request.getParameter("usuario")), request.getParameter("nome"), request.getParameter("email"), Tipo.valueOf(request.getParameter("tipo")));
 			daoPessoa.atualizar(p);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/lista").forward(request, response);
+		response.sendRedirect("lista");
 	}
 
 	protected void removerUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
