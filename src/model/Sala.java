@@ -31,7 +31,7 @@ public class Sala {
 	
 	@ManyToMany
 	@JoinTable(name = "sala_recurso", joinColumns={@JoinColumn(name = "sala_id")}, inverseJoinColumns={@JoinColumn(name = "recurso_id")})
-	private Set<Recurso> recursos;
+	private List<Recurso> recursos;
 	
 	@OneToMany(mappedBy = "salaReservada", fetch = FetchType.EAGER)
 	private List<Reserva> reservas;
@@ -73,11 +73,11 @@ public class Sala {
 		this.numero = numero;
 	}
 
-	public Set<Recurso> getRecursos() {
+	public List<Recurso> getRecursos() {
 		return recursos;
 	}
 
-	public void setRecursos(Set<Recurso> recursos) {
+	public void setRecursos(List<Recurso> recursos) {
 		this.recursos = recursos;
 	}
 

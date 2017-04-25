@@ -145,6 +145,16 @@
   
   
   
+  
+  <servlet>
+	<servlet-name>CarregaCadastroSala</servlet-name>
+	<servlet-class>controller.SalaController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>CarregaCadastroSala</servlet-name>
+	<url-pattern>/sala/carregaCadastro</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
 	<servlet-name>CadastroSala</servlet-name>
 	<servlet-class>controller.SalaController</servlet-class>

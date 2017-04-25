@@ -33,7 +33,7 @@ public class RecursoController extends HttpServlet {
 	}
 	
 	protected void verificarUrl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = request.getServletPath();
+ 		String url = request.getServletPath();
 		
 		if (daoRecurso == null) {
 			daoRecurso = new RecursoDao();
