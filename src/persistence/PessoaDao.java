@@ -2,10 +2,12 @@ package persistence;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.Pessoa;
+import model.Sala;
 
 public class PessoaDao{
 	
@@ -40,8 +42,13 @@ public class PessoaDao{
 		s = HibernateUtil.getSessionFactory().openSession();
 		t = s.beginTransaction();
 		
+		Criteria c = s.createCriteria(Pessoa.class);
+		
+		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
 		@SuppressWarnings("unchecked")
-		List<Pessoa> listaPessoas = s.createCriteria(Pessoa.class).list();
+		List<Pessoa> listaPessoas = c.list();
+		
 		s.close();
 		
 		return listaPessoas;
