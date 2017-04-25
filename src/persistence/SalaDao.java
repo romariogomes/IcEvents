@@ -2,6 +2,7 @@ package persistence;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -40,8 +41,13 @@ public class SalaDao{
 		s = HibernateUtil.getSessionFactory().openSession();
 		t = s.beginTransaction();
 		
+		Criteria c = s.createCriteria(Sala.class);
+		
+		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
 		@SuppressWarnings("unchecked")
-		List<Sala> listaSalas = s.createCriteria(Sala.class).list();
+		List<Sala> listaSalas = c.list();
+		
 		s.close();
 		
 		return listaSalas;
