@@ -177,7 +177,7 @@ public class SalaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("../index.jsp").forward(request, response);
+		request.getRequestDispatcher("lista").forward(request, response);
 	}
 
 }
