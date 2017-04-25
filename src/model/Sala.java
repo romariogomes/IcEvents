@@ -29,11 +29,11 @@ public class Sala {
 	@Column
 	private Integer capacidade;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "sala_recurso", joinColumns={@JoinColumn(name = "sala_id")}, inverseJoinColumns={@JoinColumn(name = "recurso_id")})
 	private List<Recurso> recursos;
 	
-	@OneToMany(mappedBy = "salaReservada", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "salaReservada", fetch = FetchType.LAZY)
 	private List<Reserva> reservas;
 	
 	public Sala() {

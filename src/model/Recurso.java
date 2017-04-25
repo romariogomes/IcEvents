@@ -22,7 +22,7 @@ public class Recurso {
 	@Column
 	private String descricao;
 	
-	@ManyToMany(mappedBy = "recursos", fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "recursos")
 	private List<Sala> salas;
 	
 	public Recurso() {

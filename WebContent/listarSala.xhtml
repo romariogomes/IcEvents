@@ -14,14 +14,14 @@
 			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 			<link href="../css/project.css" rel="stylesheet" />
 		
-			<form class="form-group" method="post" action="atualizar?recurso=${recurso.codigoRecurso}">
+			<form class="form-group" method="post" action="atualizar?sala=${sala.codigoSala}">
 				
 				<div class="row">
 				
 		        	<div class="col-md-1">
 		        		<div class="form-group">
 		        			<label for="inputCodigo">Código</label>
-		        			<input id="inputCodigo" type="text" class="form-control" name="codigo" disabled="disabled" value="${recurso.codigoRecurso}" />	        			
+		        			<input id="inputCodigo" type="text" class="form-control" name="codigo" disabled="disabled" value="${salaEspecifica.codigoSala}" />	        			
 		    			</div>
 		            </div>
 		       
@@ -32,7 +32,7 @@
 		        	<div class="col-md-2">
 		        		<div class="form-group">
 		        			<label for="inputNumero">Número</label>
-		        			<input id="inputNumero" type="text" class="form-control" name="numero" required="required" placeholder="Identificação sala" />	        			
+		        			<input id="inputNumero" type="text" class="form-control" name="numero" required="required" placeholder="Identificação sala" value="${salaEspecifica.numero}"/>	        			
 		    			</div>
 		            </div>
 		            
@@ -43,7 +43,7 @@
 		        	<div class="col-md-1">
 		        		<div class="form-group">
 		        			<label for="inputCapacidade">Capacidade</label>
-		        			<input id="inputCapacidade" type="text" class="form-control" name="capacidade" required="required" />
+		        			<input id="inputCapacidade" type="text" class="form-control" name="capacidade" required="required" value="${salaEspecifica.capacidade}"/>
 		    			</div>
 		            </div>
 		          
@@ -55,15 +55,15 @@
 		        		<div class="form-group">
 		        			<label for="inputCapacidade">Recursos disponíveis</label>
 		        			
-		        			<c:if test="${listaRecursos.isEmpty() || listaRecursos == null}">
+		        			<c:if test="${salaEspecifica.recursos == null}">
 		        				<p>Nenhum recurso disponível</p>
 		        			</c:if>
 		        			
-		        			<c:if test="${listaRecursos !=null and !listaRecursos.isEmpty()}">
+		        			<c:if test="${salaEspecifica.recursos !=null}">
 		        				
 		        				<ul class="listaRecursosDiv">
-			        				<c:forEach items="${listaRecursos}" var="r">
-		        						<li><input type="checkbox" checked="checked"/> &nbsp; ${r.descricao} &nbsp; &nbsp; &nbsp;</li>
+			        				<c:forEach items="${listaRecursosDaSala}" var="lr">
+		        						<li><input type="checkbox" checked="checked"/> &nbsp; ${lr.descricao} &nbsp; &nbsp; &nbsp;</li>
 		        					</c:forEach>	 
 		    					</ul>
 		        			</c:if>

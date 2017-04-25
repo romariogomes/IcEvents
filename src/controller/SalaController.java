@@ -121,7 +121,12 @@ public class SalaController extends HttpServlet {
 		
 			Integer codigo = Integer.parseInt(request.getParameter("sala"));
 			Sala sl = daoSala.buscarPorId(codigo);
-			request.setAttribute("sala", sl);
+			request.setAttribute("salaEspecifica", sl);
+			
+			List<Recurso> recursosDaSala = sl.getRecursos();
+			
+			request.setAttribute("listaRecursosDaSala", recursosDaSala);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
