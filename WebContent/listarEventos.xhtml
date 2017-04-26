@@ -18,6 +18,7 @@
 				<tr>
 					<th id="codigoPessoaTbl">Código</th>
 					<th id="emailPessoaTbl">Tema</th>
+					<th id="nomePessoaTbl">Tipo</th>
 					<th id="codigoPessoaTbl">Número de vagas</th>
 					<th></th>
 				</tr>
@@ -26,8 +27,9 @@
 					
 					<tr>
 						<td id="codigoPessoaTbl">${e.codigoEvento}</td>
+						<td id="emailPessoaTbl">${e.tema}</td>
 						<td id="nomePessoaTbl">${e.tipoEvento}</td>
-						<td id="nomePessoaTbl">${e.vagas}</td>
+						<td id="codigoPessoaTbl">${e.vagas}</td>
 						<td><a href="evento/busca?evento=${e.codigoEvento}"><button type="button" class="btn btn-default">Alterar</button></a> &nbsp; &nbsp;
 	    					<a href="evento/remover?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></a>
 	    				</td>

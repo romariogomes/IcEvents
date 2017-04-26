@@ -63,9 +63,9 @@ public class EventoController extends HttpServlet {
 //			atualizarEvento(request, response);
 //		}
 //		
-//		if (url.equals("/evento/remover")){
-//			removerEvento(request, response);
-//		}
+		if (url.equals("/evento/remover")){
+			removerEvento(request, response);
+		}
 		
 	}
 	
@@ -166,19 +166,19 @@ public class EventoController extends HttpServlet {
 //		request.getRequestDispatcher("/lista").forward(request, response);
 //	}
 //
-//	protected void removerEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		try {
-//			
-//			Integer codigo = Integer.parseInt(request.getParameter("sala"));
-//			Sala sl = daoSala.buscarPorId(codigo);
-//			daoSala.remover(sl);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		request.getRequestDispatcher("lista").forward(request, response);
-//	}
+	protected void removerEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			
+			Integer codigo = Integer.parseInt(request.getParameter("evento"));
+			Evento ev = daoEvento.buscarPorId(codigo);
+			daoEvento.remover(ev);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("lista").forward(request, response);
+	}
 
 }
