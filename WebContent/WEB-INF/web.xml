@@ -200,4 +200,59 @@
 	<url-pattern>/sala/remover</url-pattern>
   </servlet-mapping>
   
+  
+  <servlet>
+	<servlet-name>CarregaCadastroEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>CarregaCadastroEvento</servlet-name>
+	<url-pattern>/evento/carregaCadastro</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>CadastroEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>CadastroEvento</servlet-name>
+	<url-pattern>/evento/cadastro</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>ConsultaEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ConsultaEvento</servlet-name>
+	<url-pattern>/evento/busca</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>ListaEventos</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ListaEventos</servlet-name>
+	<url-pattern>/evento/lista</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>AtualizaEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>AtualizaEvento</servlet-name>
+	<url-pattern>/evento/atualizar</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>RemoveEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>RemoveEvento</servlet-name>
+	<url-pattern>/evento/remover</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

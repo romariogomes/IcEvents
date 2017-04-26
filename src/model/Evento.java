@@ -30,6 +30,9 @@ public class Evento {
 	private String descricao;
 	
 	@Column
+	private Integer vagas;
+	
+	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private TipoEvento tipoEvento;
 	
@@ -75,19 +78,12 @@ public class Evento {
 		this.palestrantes = new ArrayList<Palestrante>();
 	}
 	
-	public Evento(Integer codigoEvento, String tema, String descricao, TipoEvento tipoEvento) {
+	public Evento(Integer codigoEvento, String tema, String descricao, Integer vagas) {
 		super();
 		this.codigoEvento = codigoEvento;
 		this.tema = tema;
 		this.descricao = descricao;
-		this.tipoEvento = tipoEvento;
-	}
-
-	public Evento(Integer codigoEvento, String tema, String descricao) {
-		super();
-		this.codigoEvento = codigoEvento;
-		this.tema = tema;
-		this.descricao = descricao;
+		this.vagas = vagas;
 	}
 
 	public Integer getCodigoEvento() {
