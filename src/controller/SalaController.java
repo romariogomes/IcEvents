@@ -91,13 +91,13 @@ public class SalaController extends HttpServlet {
 		
 		HttpSession sessao = request.getSession();
 		
-		String [] teste = request.getParameterValues("recursoSala");
+		String [] carregaRecurso = request.getParameterValues("recursoSala");
 		List<Recurso> recursos = new ArrayList<Recurso>();
 
 		try {
 			
-			for (int i = 0; i < teste.length; i++) {
-				Recurso r = daoRecurso.buscarPorId(Integer.parseInt(teste[i]));
+			for (int i = 0; i < carregaRecurso.length; i++) {
+				Recurso r = daoRecurso.buscarPorId(Integer.parseInt(carregaRecurso[i]));
 				recursos.add(r);
 			}
 			
