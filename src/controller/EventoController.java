@@ -55,9 +55,9 @@ public class EventoController extends HttpServlet {
 //			consultarEvento(request, response);
 //		}
 //		
-//		if (url.equals("/evento/lista")){
-//			listarEventos(request, response);
-//		}
+		if (url.equals("/evento/lista")){
+			listarEventos(request, response);
+		}
 //		
 //		if (url.equals("/evento/atualizar")){
 //			atualizarEvento(request, response);
@@ -136,21 +136,21 @@ public class EventoController extends HttpServlet {
 //		request.getRequestDispatcher("../listarSala.xhtml").forward(request, response);
 //	}
 //	
-//	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		try {
-//		
-//			List<Sala> Salas = new ArrayList<Sala>();
-//			Salas = daoSala.listarTodos();
-//			request.getSession().setAttribute("listaSalas", Salas);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		response.sendRedirect("../listarSalas.xhtml");
-//	}
-//	
+	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+		
+			List<Evento> Eventos = new ArrayList<Evento>();
+			Eventos = daoEvento.listarTodos();
+			request.getSession().setAttribute("listaEventos", Eventos);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("../listarEventos.xhtml");
+	}
+	
 //	protected void atualizarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		
 //		Sala sl = new Sala(Integer.parseInt(request.getParameter("sala")), request.getParameter("numero"), Integer.parseInt(request.getParameter("capacidade")));

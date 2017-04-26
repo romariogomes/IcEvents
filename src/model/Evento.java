@@ -110,6 +110,14 @@ public class Evento {
 		this.descricao = descricao;
 	}
 	
+	public Integer getVagas() {
+		return vagas;
+	}
+
+	public void setVagas(Integer vagas) {
+		this.vagas = vagas;
+	}
+
 	public TipoEvento getTipoEvento() {
 		return tipoEvento;
 	}
