@@ -51,18 +51,18 @@ public class EventoController extends HttpServlet {
 			cadastrarEvento(request, response);
 		}
 		
-//		if (url.equals("/evento/busca")){
-//			consultarEvento(request, response);
-//		}
-//		
+		if (url.equals("/evento/busca")){
+			consultarEvento(request, response);
+		}
+		
 		if (url.equals("/evento/lista")){
 			listarEventos(request, response);
 		}
-//		
-//		if (url.equals("/evento/atualizar")){
-//			atualizarEvento(request, response);
-//		}
-//		
+		
+		if (url.equals("/evento/atualizar")){
+			atualizarEvento(request, response);
+		}
+		
 		if (url.equals("/evento/remover")){
 			removerEvento(request, response);
 		}
@@ -114,28 +114,34 @@ public class EventoController extends HttpServlet {
 		response.sendRedirect("lista");
 	}
 	
-//	protected void consultarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		HttpSession sessao = request.getSession();
-//		
-//		try {
-//		
-//			Integer codigo = Integer.parseInt(request.getParameter("sala"));
-//			Sala sl = daoSala.buscarPorId(codigo);
-//			request.setAttribute("salaEspecifica", sl);
+	protected void consultarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
+		List<Pessoa> participantes = new ArrayList<Pessoa>();
+		List<Pessoa> organizadores = new ArrayList<Pessoa>();
+		
+		try {
+		
+			Integer codigo = Integer.parseInt(request.getParameter("evento"));
+			Evento ev = daoEvento.buscarPorId(codigo);
 			
-//			List<Evento> recursosDaSala = sl.getEventos();
+			ev.setParticipantes(participantes);
+			ev.setOrganizadores(organizadores);
+			ev.setPalestrantes(palestrantes);
+			ev.setReservas(reservas);
 			
-//			request.setAttribute("listaEventosDaSala", recursosDaSala);
+			request.setAttribute("evento", ev);
 			
-
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		request.getRequestDispatcher("../listarSala.xhtml").forward(request, response);
-//	}
-//	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("../listarEvento_Admin.xhtml").forward(request, response);
+	}
+	
 	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
@@ -151,21 +157,22 @@ public class EventoController extends HttpServlet {
 		response.sendRedirect("../listarEventos.xhtml");
 	}
 	
-//	protected void atualizarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		Sala sl = new Sala(Integer.parseInt(request.getParameter("sala")), request.getParameter("numero"), Integer.parseInt(request.getParameter("capacidade")));
-//		
-//		try {
-//			
-//			daoSala.atualizar(sl);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		request.getRequestDispatcher("/lista").forward(request, response);
-//	}
-//
+	protected void atualizarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Evento ev = new Evento(Integer.parseInt(request.getParameter("evento")), request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
+		ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
+		
+		try {
+			
+			daoEvento.atualizar(ev);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("lista").forward(request, response);
+	}
+
 	protected void removerEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
