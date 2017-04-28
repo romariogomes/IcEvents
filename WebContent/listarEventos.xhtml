@@ -12,8 +12,12 @@
 		
 		<ui:define name="content">
 			
-			<h2>Lista de eventos</h2> <a href="cadastroEvento.xhtml"><button id="btnNew" class="btn btn-success">Novo +</button></a>
-						
+			<h2>Lista de eventos</h2> 
+			
+			<c:if test="${user.tipo == 'ORGANIZADOR'}">
+				<a href="cadastroEvento.xhtml"><button id="btnNew" class="btn btn-success">Novo +</button></a>
+			</c:if>
+			
 			<table class="table table-hover">
 			
 				<tr>
@@ -30,11 +34,13 @@
 						<td id="nomePessoaTbl">${e.tipoEvento}</td>
 						<td id="codigoPessoaTbl">${e.vagasDisponiveis} </td>
 						<td><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
-	    					<c:if test="${e.vagasDisponiveis == 0}">
-	    						<a href="#"><button disabled="disabled" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Participar</button></a>
-	    					</c:if>
-	    					<c:if test="${e.vagasDisponiveis  > 0}">
-	    						<a href="evento/participarDeEvento?evento=${e.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+	    					<c:if test="${user.tipo == 'PARTICIPANTE' || user == null}">
+		    					<c:if test="${e.vagasDisponiveis == 0}">
+		    						<a href="#"><button disabled="disabled" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Participar</button></a>
+		    					</c:if>
+		    					<c:if test="${e.vagasDisponiveis  > 0}">
+		    						<a href="evento/participarDeEvento?evento=${e.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+		    					</c:if>
 	    					</c:if>
 	    				</td>
 					</tr>

@@ -228,7 +228,9 @@ public class EventoController extends HttpServlet {
 		try {
 			
 			if (p == null) {
-				pagina = "login.xhtml";
+				pagina = "../cadastroParticipante.xhtml";
+				response.sendRedirect(pagina);
+				
 			} else {
 				
 				if (p.getTipo().equals(Tipo.PARTICIPANTE)) {
@@ -240,6 +242,10 @@ public class EventoController extends HttpServlet {
 					p.getEventos().add(ev);
 					
 					daoEvento.atualizar(ev);
+					
+					pagina = "lista";
+					
+					request.getRequestDispatcher(pagina).forward(request, response);
 				}
 			}
 			
@@ -247,7 +253,6 @@ public class EventoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("lista").forward(request, response);
 	}
 
 }

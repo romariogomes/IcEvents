@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
+      
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">IC-Events - Cadastro de usuário</ui:define>
+		
+		<ui:define name="content">
+		
+			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../css/project.css" rel="stylesheet" />
+			
+			<h2>Cadastro de usuário</h2>
+			
+			<p>Para participar deste evento é necessário realizar o cadastro. Preenche aí, é rapidinho ;D</p>			
+			
+			<form class="form-group" method="post" action="usuario/cadastro">
+				
+				<div class="row">
+				
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputNome">Nome</label>
+		        			<input id="inputNome" type="text" class="form-control" name="nome" required="required" placeholder="Nome completo" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+		         <div class="row">       
+		       
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputEmail">Email</label>
+		        			<input id="inputEmail" type="text" class="form-control" name="email" required="required" placeholder="E-mail" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <div class="row">       
+		       
+		        	<div class="col-md-3">
+		        		<div class="form-group">
+		        			<label for="inputSenha">Senha</label>
+		        			<input id="inputSenha" type="password" class="form-control" name="senha" required="required" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <div class="row">       
+		       
+		        	<div class="col-md-3">
+		        		<div class="form-group">
+		        			<label for="inputConfSenha">Confirme sua senha</label>
+		        			<input id="inputConfSenha" type="password" class="form-control" name="confsenha" required="required" />
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         	
+		         <c:if test="${user.tipo == 'ADMIN'}">
+		         	<div class="row">  
+		         		<div class="col-md-3">     
+			       			<div class="form-group">
+							  <label for="sel1">Tipo</label>
+							  <select class="form-control" name="tipo">
+							    <option>ADMIN</option>
+							    <option>ORGANIZADOR</option>
+							    <option>PARTICIPANTE</option>
+							  </select>
+							</div>
+						</div>
+		         	</div>	
+		         </c:if>
+		         
+		         <button type="submit" class="btn btn-primary">Cadastrar</button>
+	             	
+        	</form>
+		
+		</ui:define>
+		
+	</ui:composition>
+	
+</html>
