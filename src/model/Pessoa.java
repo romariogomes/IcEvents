@@ -98,11 +98,19 @@ public class Pessoa {
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
+	
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
 
 	@Override
 	public String toString() {
 		return "Pessoa [codigoPessoa=" + codigoPessoa + ", nome=" + nome + ", email=" + email + ", senha=" + senha
-				+ ", tipo=" + tipo + "]";
+				+ ", tipo=" + tipo + ", eventos=" + eventos + "]";
 	}
 
 }
