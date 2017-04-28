@@ -18,12 +18,14 @@ import model.Reserva;
 import model.Tipo;
 import model.TipoEvento;
 import persistence.EventoDao;
+import persistence.PessoaDao;
 
 @WebServlet("/EventoController")
 public class EventoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private EventoDao daoEvento;
+	private PessoaDao daoPessoa;
 	
     public EventoController() {
         super();
@@ -42,6 +44,7 @@ public class EventoController extends HttpServlet {
 		
 		if (daoEvento == null) {
 			daoEvento = new EventoDao();
+			daoPessoa = new PessoaDao();
 		}
 		
 //		if (url.equals("/evento/carregaCadastro")){
@@ -66,6 +69,10 @@ public class EventoController extends HttpServlet {
 		
 		if (url.equals("/evento/remover")){
 			removerEvento(request, response);
+		}
+		
+		if (url.equals("/evento/participarDeEvento")){
+			participarDeEvento(request, response);
 		}
 		
 	}
@@ -159,7 +166,7 @@ public class EventoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (p == null) {
+		if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE) || p.getTipo().equals(Tipo.ORGANIZADOR)) {
 			pagina = "../listarEventos.xhtml";
 			
 		} else {
@@ -173,6 +180,8 @@ public class EventoController extends HttpServlet {
 	}
 	
 	protected void atualizarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
 		
 		Evento ev = new Evento(Integer.parseInt(request.getParameter("evento")), request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
 		ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
@@ -190,11 +199,47 @@ public class EventoController extends HttpServlet {
 
 	protected void removerEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession sessao = request.getSession();
+		
 		try {
 			
 			Integer codigo = Integer.parseInt(request.getParameter("evento"));
 			Evento ev = daoEvento.buscarPorId(codigo);
 			daoEvento.remover(ev);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("lista").forward(request, response);
+	}
+	
+	protected void participarDeEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		Pessoa p = new Pessoa();
+		
+		String pagina = new String();
+		
+		p = (Pessoa) sessao.getAttribute("user");
+		
+		try {
+			
+			if (p == null) {
+				pagina = "login.xhtml";
+			} else {
+				if (p.getTipo().equals(Tipo.PARTICIPANTE)) {
+					
+					Integer codigo = Integer.parseInt(request.getParameter("evento"));
+					Evento ev = daoEvento.buscarPorId(codigo);
+					ev.getPessoas().add(p);
+					p.getEventos().add(ev);
+					
+					daoEvento.atualizar(ev);
+//					daoPessoa.inserir(p);
+				}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

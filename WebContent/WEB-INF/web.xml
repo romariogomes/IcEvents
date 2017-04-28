@@ -255,4 +255,14 @@
 	<url-pattern>/evento/remover</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>ParticiparDeEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ParticiparDeEvento</servlet-name>
+	<url-pattern>/evento/participarDeEvento</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>
