@@ -15,6 +15,7 @@ import model.Evento;
 import model.Palestrante;
 import model.Pessoa;
 import model.Reserva;
+import model.Tipo;
 import model.TipoEvento;
 import persistence.EventoDao;
 
@@ -140,6 +141,14 @@ public class EventoController extends HttpServlet {
 	
 	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession sessao = request.getSession();
+		
+		Pessoa p = new Pessoa();
+		
+		String pagina = new String();
+		
+		p = (Pessoa) sessao.getAttribute("user");
+		
 		try {
 		
 			List<Evento> Eventos = new ArrayList<Evento>();
@@ -150,7 +159,17 @@ public class EventoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("../listarEventos.xhtml");
+		if (p == null) {
+			pagina = "../listarEventos.xhtml";
+			
+		} else {
+			if (p.getTipo().equals(Tipo.ADMIN)) {
+				pagina = "../listarEventos_Admin.xhtml";
+			}
+		}
+		
+		response.sendRedirect(pagina);
+		
 	}
 	
 	protected void atualizarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

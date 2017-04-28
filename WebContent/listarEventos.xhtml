@@ -3,35 +3,41 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" >
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions" >
       
 	<ui:composition template="template.xhtml">
 		
-		<ui:define name="title">IC-Events - Gerenciamento de eventos</ui:define>
+		<ui:define name="title">IC-Events - Lista de eventos</ui:define>
 		
 		<ui:define name="content">
 			
-			<h2>Gerenciar eventos</h2> <a href="cadastroEvento.xhtml"><button id="btnNew" class="btn btn-success">Novo +</button></a>
+			<h2>Lista de eventos</h2> <a href="cadastroEvento.xhtml"><button id="btnNew" class="btn btn-success">Novo +</button></a>
 						
 			<table class="table table-hover">
 			
 				<tr>
-					<th id="codigoPessoaTbl">Código</th>
 					<th id="emailPessoaTbl">Tema</th>
 					<th id="nomePessoaTbl">Tipo</th>
-					<th id="codigoPessoaTbl">Número de vagas</th>
+					<th id="codigoPessoaTbl">Vagas disponíveis</th>
 					<th></th>
 				</tr>
 				
 				<c:forEach items="${listaEventos}" var="e">	
 					
+					<c:set var="inscritos" value="#{fn:length(Evento.pessoas)}}" scope="request" />
+					
 					<tr>
-						<td id="codigoPessoaTbl">${e.codigoEvento}</td>
 						<td id="emailPessoaTbl">${e.tema}</td>
 						<td id="nomePessoaTbl">${e.tipoEvento}</td>
-						<td id="codigoPessoaTbl">${e.vagas}</td>
-						<td><a href="evento/busca?evento=${e.codigoEvento}"><button type="button" class="btn btn-default">Alterar</button></a> &nbsp; &nbsp;
-	    					<a href="evento/remover?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></a>
+						<td id="codigoPessoaTbl">${e.vagas - $inscritos} </td>
+						<td><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
+	    					<c:if test="${e.vagas - $inscritos == 0}">
+	    						<a href="#"><button disabled="disabled" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+	    					</c:if>
+	    					<c:if test="${e.vagas - $inscritos >= 1}">
+	    						<a href="evento/participarDeEvento?evento=${e.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+	    					</c:if>
 	    				</td>
 					</tr>
 					
