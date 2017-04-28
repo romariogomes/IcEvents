@@ -34,6 +34,9 @@ public class Evento {
 	private Integer vagas;
 	
 	@Column
+	private Integer vagasDisponiveis;
+	
+	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private TipoEvento tipoEvento;
 	
@@ -112,6 +115,14 @@ public class Evento {
 	public void setVagas(Integer vagas) {
 		this.vagas = vagas;
 	}
+	
+	public Integer getVagasDisponiveis() {
+		return vagasDisponiveis;
+	}
+
+	public void setVagasDisponiveis(Integer vagasDisponiveis) {
+		this.vagasDisponiveis = vagasDisponiveis;
+	}
 
 	public TipoEvento getTipoEvento() {
 		return tipoEvento;
@@ -147,9 +158,9 @@ public class Evento {
 
 	@Override
 	public String toString() {
-		return "Evento [codigoEvento=" + codigoEvento + ", tema=" + tema + ", descricao=" + descricao + ", tipoEvento="
-				+ tipoEvento + ", palestrantes=" + palestrantes + ", pessoas=" + pessoas
-				+ ", reservas=" + reservas + "]";
+		return "Evento [codigoEvento=" + codigoEvento + ", tema=" + tema + ", descricao=" + descricao + ", vagas="
+				+ vagas + ", vagasDisponiveis=" + vagasDisponiveis + ", tipoEvento=" + tipoEvento + ", palestrantes="
+				+ palestrantes + ", pessoas=" + pessoas + ", reservas=" + reservas + "]";
 	}
 
 }

@@ -25,17 +25,15 @@
 				
 				<c:forEach items="${listaEventos}" var="e">	
 					
-					<c:set var="inscritos" value="#{fn:length(Evento.pessoas)}}" scope="request" />
-					
 					<tr>
 						<td id="emailPessoaTbl">${e.tema}</td>
 						<td id="nomePessoaTbl">${e.tipoEvento}</td>
-						<td id="codigoPessoaTbl">${e.vagas - $inscritos} </td>
+						<td id="codigoPessoaTbl">${e.vagasDisponiveis} </td>
 						<td><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
-	    					<c:if test="${e.vagas - $inscritos == 0}">
+	    					<c:if test="${e.vagasDisponiveis == 0}">
 	    						<a href="#"><button disabled="disabled" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Participar</button></a>
 	    					</c:if>
-	    					<c:if test="${e.vagas - $inscritos >= 1}">
+	    					<c:if test="${e.vagasDisponiveis  > 0}">
 	    						<a href="evento/participarDeEvento?evento=${e.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
 	    					</c:if>
 	    				</td>

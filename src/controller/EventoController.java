@@ -101,17 +101,18 @@ public class EventoController extends HttpServlet {
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-
+		
 		try {
-			
-			Evento ev = new Evento(null, request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
-			ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
-			
-			ev.setPessoas(pessoas);
-			ev.setPalestrantes(palestrantes);
-			ev.setReservas(reservas);
-			
-			daoEvento.inserir(ev);
+				
+				Evento ev = new Evento(null, request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
+				ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
+				
+				ev.setPessoas(pessoas);
+				ev.setPalestrantes(palestrantes);
+				ev.setReservas(reservas);
+				ev.setVagasDisponiveis(ev.getVagas());
+				
+				daoEvento.inserir(ev);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -229,15 +230,16 @@ public class EventoController extends HttpServlet {
 			if (p == null) {
 				pagina = "login.xhtml";
 			} else {
+				
 				if (p.getTipo().equals(Tipo.PARTICIPANTE)) {
 					
 					Integer codigo = Integer.parseInt(request.getParameter("evento"));
 					Evento ev = daoEvento.buscarPorId(codigo);
 					ev.getPessoas().add(p);
+					ev.setVagasDisponiveis(ev.getVagas() - ev.getPessoas().size());
 					p.getEventos().add(ev);
 					
 					daoEvento.atualizar(ev);
-//					daoPessoa.inserir(p);
 				}
 			}
 			
