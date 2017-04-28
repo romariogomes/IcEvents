@@ -15,6 +15,7 @@ import model.Evento;
 import model.Palestrante;
 import model.Pessoa;
 import model.Reserva;
+import model.StatusEvento;
 import model.Tipo;
 import model.TipoEvento;
 import persistence.EventoDao;
@@ -105,7 +106,9 @@ public class EventoController extends HttpServlet {
 		try {
 				
 				Evento ev = new Evento(null, request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
+				
 				ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
+				ev.setStatusEvento(StatusEvento.EM_CRIACAO);
 				
 				ev.setPessoas(pessoas);
 				ev.setPalestrantes(palestrantes);
@@ -186,6 +189,7 @@ public class EventoController extends HttpServlet {
 		
 		Evento ev = new Evento(Integer.parseInt(request.getParameter("evento")), request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
 		ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
+		ev.setStatusEvento(StatusEvento.valueOf(request.getParameter("statusEvento")));
 		
 		try {
 			

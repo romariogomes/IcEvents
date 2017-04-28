@@ -75,7 +75,23 @@
 		    			</div>
 		            </div>
 		       
-				</div> <br/>
+				</div>
+				
+				<div class="row">  
+	         		<div class="col-md-3">     
+		       			<div class="form-group">
+						  <label for="sel1">Status do evento</label>
+						  <select class="form-control" name="statusEvento">
+						  	<option>${evento.statusEvento}</option>
+						    <option value="EM_CRIACAO">EM CRIAÇÃO</option>
+						    <option value="INSCRICOES_ABERTAS">INSCRIÇÕES ABERTAS</option>
+						    <option value="INSCRICOES_ENCERRADAS">INSCRIÇÕES ENCERRADAS</option>
+						    <option value="EM_ANDAMENTO">EM ANDAMENTO</option>
+						    <option value="ENCERRADO">ENCERRADO</option>
+						  </select>
+						</div>
+					</div>
+	         	</div> <br/>
 				
 		         <button type="submit" class="btn btn-primary">Salvar <span class="glyphicon glyphicon-save" aria-hidden="true"></span></button> &nbsp; &nbsp; 
 		         <div class="btn-group">

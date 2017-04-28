@@ -40,6 +40,10 @@ public class Evento {
 	@Enumerated(EnumType.ORDINAL)
 	private TipoEvento tipoEvento;
 	
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	private StatusEvento statusEvento;
+	
 	@ManyToMany
 	@JoinTable(name = "palestra", joinColumns={@JoinColumn(name = "evento_id")}, inverseJoinColumns={@JoinColumn(name = "palestrante_id")})
 	private List<Palestrante> palestrantes;
@@ -131,6 +135,14 @@ public class Evento {
 	public void setTipoEvento(TipoEvento tipoEvento) {
 		this.tipoEvento = tipoEvento;
 	}
+	
+	public StatusEvento getStatusEvento() {
+		return statusEvento;
+	}
+
+	public void setStatusEvento(StatusEvento statusEvento) {
+		this.statusEvento = statusEvento;
+	}
 
 	public List<Palestrante> getPalestrantes() {
 		return palestrantes;
@@ -156,11 +168,20 @@ public class Evento {
 		this.reservas = reservas;
 	}
 
-	@Override
-	public String toString() {
-		return "Evento [codigoEvento=" + codigoEvento + ", tema=" + tema + ", descricao=" + descricao + ", vagas="
-				+ vagas + ", vagasDisponiveis=" + vagasDisponiveis + ", tipoEvento=" + tipoEvento + ", palestrantes="
-				+ palestrantes + ", pessoas=" + pessoas + ", reservas=" + reservas + "]";
+	public Evento(Integer codigoEvento, String tema, String descricao, Integer vagas, Integer vagasDisponiveis,
+			TipoEvento tipoEvento, StatusEvento statusEvento, List<Palestrante> palestrantes, List<Pessoa> pessoas,
+			List<Reserva> reservas) {
+		super();
+		this.codigoEvento = codigoEvento;
+		this.tema = tema;
+		this.descricao = descricao;
+		this.vagas = vagas;
+		this.vagasDisponiveis = vagasDisponiveis;
+		this.tipoEvento = tipoEvento;
+		this.statusEvento = statusEvento;
+		this.palestrantes = palestrantes;
+		this.pessoas = pessoas;
+		this.reservas = reservas;
 	}
 
 }
