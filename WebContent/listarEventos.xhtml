@@ -32,7 +32,7 @@
 					<tr>
 						<td id="emailPessoaTbl">${e.tema}</td>
 						<td id="nomePessoaTbl">${e.tipoEvento}</td>
-						<td id="codigoPessoaTbl">${e.vagasDisponiveis} </td>
+						<td align="center" id="codigoPessoaTbl">${e.vagasDisponiveis} </td>
 						<td><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
 	    					<c:if test="${user.tipo == 'PARTICIPANTE' || user == null}">
 		    					<c:if test="${e.vagasDisponiveis == 0}">
