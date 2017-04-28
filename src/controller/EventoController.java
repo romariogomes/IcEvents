@@ -92,16 +92,14 @@ public class EventoController extends HttpServlet {
 		
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
-		List<Pessoa> participantes = new ArrayList<Pessoa>();
-		List<Pessoa> organizadores = new ArrayList<Pessoa>();
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 		try {
 			
 			Evento ev = new Evento(null, request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
 			ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
 			
-			ev.setParticipantes(participantes);
-			ev.setOrganizadores(organizadores);
+			ev.setPessoas(pessoas);
 			ev.setPalestrantes(palestrantes);
 			ev.setReservas(reservas);
 			
@@ -120,16 +118,14 @@ public class EventoController extends HttpServlet {
 		
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
-		List<Pessoa> participantes = new ArrayList<Pessoa>();
-		List<Pessoa> organizadores = new ArrayList<Pessoa>();
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		
 		try {
 		
 			Integer codigo = Integer.parseInt(request.getParameter("evento"));
 			Evento ev = daoEvento.buscarPorId(codigo);
 			
-			ev.setParticipantes(participantes);
-			ev.setOrganizadores(organizadores);
+			ev.setPessoas(pessoas);
 			ev.setPalestrantes(palestrantes);
 			ev.setReservas(reservas);
 			

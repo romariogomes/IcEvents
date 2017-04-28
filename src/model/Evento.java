@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -40,33 +41,27 @@ public class Evento {
 	@JoinTable(name = "palestra", joinColumns={@JoinColumn(name = "evento_id")}, inverseJoinColumns={@JoinColumn(name = "palestrante_id")})
 	private List<Palestrante> palestrantes;
 	
-	@ManyToMany
-	@JoinTable(name = "participantes", joinColumns={@JoinColumn(name = "evento_id")}, inverseJoinColumns={@JoinColumn(name = "pessoa_id")})
-	private List<Pessoa> participantes;
-	
-	@ManyToMany
-	@JoinTable(name = "organizadores", joinColumns={@JoinColumn(name = "evento_id")}, inverseJoinColumns={@JoinColumn(name = "pessoa_id")})
-	private List<Pessoa> organizadores;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "evento_pessoa", joinColumns={@JoinColumn(name = "evento_id")}, inverseJoinColumns={@JoinColumn(name = "pessoa_id")})
+	private List<Pessoa> pessoas;
 	
 	@OneToMany (mappedBy = "evento")
 	private List<Reserva> reservas;
 	
 	public Evento() {
 		palestrantes = new ArrayList<Palestrante>();
-		participantes = new ArrayList<Pessoa>();
-		organizadores = new ArrayList<Pessoa>();
+		pessoas = new ArrayList<Pessoa>();
 		reservas = new ArrayList<Reserva>();
 	}
 	
 	public Evento(Integer codigoEvento, String tema, String descricao, List<Palestrante> palestrantes,
-			List<Pessoa> participantes, List<Pessoa> organizadores, List<Reserva> reservas) {
+			List<Pessoa> pessoas, List<Reserva> reservas) {
 		super();
 		this.codigoEvento = codigoEvento;
 		this.tema = tema;
 		this.descricao = descricao;
 		this.palestrantes = new ArrayList<Palestrante>();
-		this.participantes = new ArrayList<Pessoa>();
-		this.organizadores = new ArrayList<Pessoa>();
+		this.pessoas = new ArrayList<Pessoa>();
 		this.reservas = new ArrayList<Reserva>();
 	}
 
@@ -134,20 +129,12 @@ public class Evento {
 		this.palestrantes = palestrantes;
 	}
 
-	public List<Pessoa> getParticipantes() {
-		return participantes;
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
 
-	public void setParticipantes(List<Pessoa> participantes) {
-		this.participantes = participantes;
-	}
-
-	public List<Pessoa> getOrganizadores() {
-		return organizadores;
-	}
-
-	public void setOrganizadores(List<Pessoa> organizadores) {
-		this.organizadores = organizadores;
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
 	public List<Reserva> getReservas() {
@@ -161,8 +148,8 @@ public class Evento {
 	@Override
 	public String toString() {
 		return "Evento [codigoEvento=" + codigoEvento + ", tema=" + tema + ", descricao=" + descricao + ", tipoEvento="
-				+ tipoEvento + ", palestrantes=" + palestrantes + ", participantes=" + participantes
-				+ ", organizadores=" + organizadores + ", reservas=" + reservas + "]";
+				+ tipoEvento + ", palestrantes=" + palestrantes + ", pessoas=" + pessoas
+				+ ", reservas=" + reservas + "]";
 	}
 
 }
