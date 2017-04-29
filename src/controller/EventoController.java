@@ -48,10 +48,6 @@ public class EventoController extends HttpServlet {
 			daoPessoa = new PessoaDao();
 		}
 		
-//		if (url.equals("/evento/carregaCadastro")){
-//			carregarCadastroEvento(request, response);
-//		}
-		
 		if (url.equals("/evento/cadastro")){
 			cadastrarEvento(request, response);
 		}
@@ -77,23 +73,6 @@ public class EventoController extends HttpServlet {
 		}
 		
 	}
-	
-//	protected void carregarCadastroEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		HttpSession sessao = request.getSession();
-//		
-//		try {
-//			
-//			List<Evento> eventos = new ArrayList<Evento>();
-//			eventos = daoEvento.listarTodos();
-//			request.setAttribute("listaEventos", eventos);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		request.getRequestDispatcher("../cadastroSala.xhtml").forward(request, response);
-//	}
 
 	protected void cadastrarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -167,8 +146,9 @@ public class EventoController extends HttpServlet {
 			if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE)) {
 				
 				eventos = daoEvento.buscarPorStatus(StatusEvento.EM_ANDAMENTO);
+				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.INSCRICOES_ABERTAS));
 				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.INSCRICOES_ENCERRADAS));
-				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.EM_ANDAMENTO));
+				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.ENCERRADO));
 				
 			}
 			
@@ -205,11 +185,19 @@ public class EventoController extends HttpServlet {
 		
 		HttpSession sessao = request.getSession();
 		
-		Evento ev = new Evento(Integer.parseInt(request.getParameter("evento")), request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
-		ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
-		ev.setStatusEvento(StatusEvento.valueOf(request.getParameter("statusEvento")));
+		Integer codigo = Integer.parseInt(request.getParameter("evento"));
 		
 		try {
+			
+			Evento ev = daoEvento.buscarPorId(codigo);
+			
+			ev.setTema(request.getParameter("tema"));
+			ev.setDescricao(request.getParameter("descricao"));
+			ev.setVagas(Integer.parseInt(request.getParameter("vagas")));
+			ev.setVagasDisponiveis(ev.getVagas()-ev.getPessoas().size());
+			
+			ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
+			ev.setStatusEvento(StatusEvento.valueOf(request.getParameter("statusEvento")));
 			
 			daoEvento.atualizar(ev);
 			
