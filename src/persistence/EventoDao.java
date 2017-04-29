@@ -1,12 +1,15 @@
 package persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import model.Evento;
+import model.StatusEvento;
 
 public class EventoDao{
 	
@@ -63,6 +66,22 @@ public class EventoDao{
 		@SuppressWarnings("unchecked")
 		List<Evento> listaEventos = c.list();
 		
+		s.close();
+		
+		return listaEventos;
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Evento> buscarPorStatus(StatusEvento status) throws Exception {
+		
+		s = HibernateUtil.getSessionFactory().openSession();
+		t = s.beginTransaction();
+		
+		List<Evento> listaEventos = new ArrayList<Evento>();
+		
+		listaEventos = s.createQuery("from Evento where statusEvento=" + status.ordinal()).list();	
+
 		s.close();
 		
 		return listaEventos;

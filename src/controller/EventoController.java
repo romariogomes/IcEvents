@@ -162,21 +162,39 @@ public class EventoController extends HttpServlet {
 		
 		try {
 		
-			List<Evento> Eventos = new ArrayList<Evento>();
-			Eventos = daoEvento.listarTodos();
-			request.getSession().setAttribute("listaEventos", Eventos);
+			List<Evento> eventos = new ArrayList<Evento>();
+			
+			if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE)) {
+				
+				eventos = daoEvento.buscarPorStatus(StatusEvento.EM_ANDAMENTO);
+				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.INSCRICOES_ENCERRADAS));
+				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.EM_ANDAMENTO));
+				
+			}
+			
+			if (p != null) {
+				
+				if (p.getTipo().equals(Tipo.ADMIN) || p.getTipo().equals(Tipo.ORGANIZADOR)) {
+					eventos = daoEvento.listarTodos();
+				}
+				
+			}
+			
+			if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE) || p.getTipo().equals(Tipo.ORGANIZADOR)) {
+				
+				pagina = "../listarEventos.xhtml";
+				
+			} else {
+				
+				if (p.getTipo().equals(Tipo.ADMIN)) {
+					pagina = "../listarEventos_Admin.xhtml";
+				}
+			}
+			
+			request.getSession().setAttribute("listaEventos", eventos);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE) || p.getTipo().equals(Tipo.ORGANIZADOR)) {
-			pagina = "../listarEventos.xhtml";
-			
-		} else {
-			if (p.getTipo().equals(Tipo.ADMIN)) {
-				pagina = "../listarEventos_Admin.xhtml";
-			}
 		}
 		
 		response.sendRedirect(pagina);
