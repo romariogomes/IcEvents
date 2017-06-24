@@ -72,6 +72,14 @@ public class EventoController extends HttpServlet {
 			participarDeEvento(request, response);
 		}
 		
+		if (url.equals("/evento/semReserva")){
+			listarEventosSemReserva(request, response);
+		}
+		
+		if (url.equals("/evento/agendar")){
+			agendarEvento(request, response);
+		}
+		
 	}
 
 	protected void cadastrarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -263,6 +271,74 @@ public class EventoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	protected void listarEventosSemReserva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+				
+		Pessoa p = new Pessoa();
+		
+		String pagina = new String();
+		
+		p = (Pessoa) sessao.getAttribute("user");
+		
+		try {
+			
+			List<Evento> eventos = new ArrayList<Evento>();
+			
+			if (p != null) {
+				
+				if (p.getTipo().equals(Tipo.ADMIN)) {
+					eventos = daoEvento.buscarPorStatus(StatusEvento.EM_CRIACAO);
+					pagina = "../listarEventosSemReserva.xhtml";
+				}
+				
+			}
+			
+			request.getSession().setAttribute("listaEventos", eventos);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect(pagina);
+
+	}
+
+
+	protected void agendarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		Reserva r = new Reserva();
+		
+		Pessoa p = new Pessoa();
+		
+		String pagina = new String();
+		
+		p = (Pessoa) sessao.getAttribute("user");
+		
+		try {
+			
+			if (p == null) {
+				pagina = "../cadastroParticipante.xhtml";
+				response.sendRedirect(pagina);
+				
+			} else {
+			
+			Integer codigo = Integer.parseInt(request.getParameter("evento"));
+			Evento ev = daoEvento.buscarPorId(codigo);
+			
+			r.setEvento(ev);
+			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("lista").forward(request, response);
 	}
 
 }

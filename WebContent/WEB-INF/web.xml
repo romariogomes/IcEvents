@@ -272,6 +272,15 @@
   </servlet-mapping>
   
   <servlet>
+	<servlet-name>ListarEventosSemReserva</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ListarEventosSemReserva</servlet-name>
+	<url-pattern>/evento/semReserva</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
 	<servlet-name>AgendarEvento</servlet-name>
 	<servlet-class>controller.EventoController</servlet-class>
   </servlet>
