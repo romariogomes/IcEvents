@@ -96,8 +96,15 @@
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
   
-
-  
+  <servlet>
+	<servlet-name>Home</servlet-name>
+	<servlet-class>controller.ControleAcesso</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Home</servlet-name>
+	<url-pattern>/home</url-pattern>
+  </servlet-mapping>
+    
   <servlet>
     <servlet-name>CadastroRecurso</servlet-name>
     <servlet-class>controller.RecursoController</servlet-class>
@@ -264,5 +271,13 @@
 	<url-pattern>/evento/participarDeEvento</url-pattern>
   </servlet-mapping>
   
-  
+  <servlet>
+	<servlet-name>AgendarEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>AgendarEvento</servlet-name>
+	<url-pattern>/evento/agendar</url-pattern>
+  </servlet-mapping>
+    
 </web-app>

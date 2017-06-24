@@ -49,6 +49,19 @@ public class ControleAcesso extends HttpServlet {
 			logoutUsuario(request, response);
 		}
 		
+		if (url.equals("/home")){
+			
+//			HttpSession sessao = request.getSession();
+//			
+//			if (sessao != null) {
+//				Pessoa p = new Pessoa();			
+//				p = (Pessoa) sessao.getAttribute("user");
+//			}
+			
+//			request.getRequestDispatcher("index.xhtml");
+			response.sendRedirect("index.xhtml");
+		}
+		
 	}
 	
 	protected void autenticarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
