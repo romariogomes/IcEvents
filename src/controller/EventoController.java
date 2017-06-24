@@ -76,6 +76,10 @@ public class EventoController extends HttpServlet {
 			listarEventosSemReserva(request, response);
 		}
 		
+		if (url.equals("/evento/comReserva")){
+			listarEventosComReserva(request, response);
+		}
+		
 		if (url.equals("/evento/agendar")){
 			agendarEvento(request, response);
 		}
@@ -306,7 +310,53 @@ public class EventoController extends HttpServlet {
 
 	}
 
+	protected void listarEventosComReserva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+				
+		Pessoa p = new Pessoa();
+		
+		String pagina = new String();
+		
+		p = (Pessoa) sessao.getAttribute("user");
+		
+		try {
+			
+			List<Evento> eventos = new ArrayList<Evento>();
+			
+			if (p != null) {
+				
+				if (p.getTipo().equals(Tipo.ADMIN)) {
+					
+					eventos = daoEvento.listarTodos();
+					
+					if (!eventos.isEmpty() || eventos != null) {
+						
+						for (int i = 0; i < eventos.size(); i++) {
+							
+							if ((eventos.get(i).getStatusEvento().equals(StatusEvento.EM_CRIACAO)) || (eventos.get(i).getStatusEvento().equals(StatusEvento.ENCERRADO))) {
+								eventos.remove(i);
+							}
+						}
+						
+					}					
+					
+					pagina = "../listarEventosComReserva.xhtml";
+				}
+				
+			}
+			
+			request.getSession().setAttribute("listaEventos", eventos);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect(pagina);
+
+	}
+
+	
 	protected void agendarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession sessao = request.getSession();
