@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,23 +12,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import model.Evento;
 import model.Palestrante;
 import model.Pessoa;
 import model.Reserva;
+import model.Sala;
 import model.StatusEvento;
 import model.Tipo;
 import model.TipoEvento;
 import persistence.EventoDao;
 import persistence.PessoaDao;
+import persistence.ReservaDao;
+import persistence.SalaDao;
 
+@Transactional
 @WebServlet("/EventoController")
 public class EventoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private EventoDao daoEvento;
 	private PessoaDao daoPessoa;
+	private SalaDao daoSala;
+	private ReservaDao daoReserva;
 	
     public EventoController() {
         super();
@@ -46,6 +55,8 @@ public class EventoController extends HttpServlet {
 		if (daoEvento == null) {
 			daoEvento = new EventoDao();
 			daoPessoa = new PessoaDao();
+			daoSala = new SalaDao();
+			daoReserva = new ReservaDao();
 		}
 		
 		if (url.equals("/evento/cadastro")){
@@ -82,6 +93,10 @@ public class EventoController extends HttpServlet {
 		
 		if (url.equals("/evento/agendar")){
 			agendarEvento(request, response);
+		}
+		
+		if (url.equals("/evento/finalizarReserva")){
+			finalizarReserva(request, response);
 		}
 		
 	}
@@ -322,31 +337,11 @@ public class EventoController extends HttpServlet {
 		
 		try {
 			
-			List<Evento> eventos = new ArrayList<Evento>();
+			List<Reserva> eventosReservados = new ArrayList<Reserva>();
+			eventosReservados = daoReserva.listarTodos();
 			
-			if (p != null) {
-				
-				if (p.getTipo().equals(Tipo.ADMIN)) {
-					
-					eventos = daoEvento.listarTodos();
-					
-					if (!eventos.isEmpty() || eventos != null) {
-						
-						for (int i = 0; i < eventos.size(); i++) {
-							
-							if ((eventos.get(i).getStatusEvento().equals(StatusEvento.EM_CRIACAO)) || (eventos.get(i).getStatusEvento().equals(StatusEvento.ENCERRADO))) {
-								eventos.remove(i);
-							}
-						}
-						
-					}					
-					
-					pagina = "../listarEventosComReserva.xhtml";
-				}
-				
-			}
-			
-			request.getSession().setAttribute("listaEventos", eventos);
+			request.getSession().setAttribute("listaEventosReservados", eventosReservados);
+			pagina = "../listarEventosComReserva.xhtml";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -361,34 +356,73 @@ public class EventoController extends HttpServlet {
 		
 		HttpSession sessao = request.getSession();
 		
-		Reserva r = new Reserva();
-		
-		Pessoa p = new Pessoa();
-		
-		String pagina = new String();
-		
-		p = (Pessoa) sessao.getAttribute("user");
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		
 		try {
-			
-			if (p == null) {
-				pagina = "../cadastroParticipante.xhtml";
-				response.sendRedirect(pagina);
-				
-			} else {
-			
+		
 			Integer codigo = Integer.parseInt(request.getParameter("evento"));
 			Evento ev = daoEvento.buscarPorId(codigo);
 			
-			r.setEvento(ev);
+			ev.setPessoas(pessoas);
+			ev.setPalestrantes(palestrantes);
+			ev.setReservas(reservas);
 			
-			}
+			List<Sala> Salas = new ArrayList<Sala>();
+			Salas = daoSala.listarTodos();
+			
+			request.getSession().setAttribute("listaSalas", Salas);
+			request.setAttribute("evento", ev);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("lista").forward(request, response);
+		request.getRequestDispatcher("../adicionarReserva.xhtml").forward(request, response);
 	}
-
+	
+	protected void finalizarReserva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		Integer codigo = Integer.parseInt(request.getParameter("evento"));
+		Integer codigoSala = Integer.parseInt(request.getParameter("numeroSala"));
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		Reserva r = new Reserva();
+		
+		try {
+			
+			Evento ev = daoEvento.buscarPorId(codigo);
+			
+			r.setData(df.parse(request.getParameter("data")));
+			r.setHora(request.getParameter("horaIni"));
+			r.setEvento(ev);
+			
+			ev.setStatusEvento(StatusEvento.RESERVADO);
+		    daoEvento.atualizar(ev);
+		    
+			reservas.add(r);
+			
+			Sala s = daoSala.buscarPorId(codigoSala);
+			
+			ev.setPessoas(pessoas);
+			ev.setPalestrantes(palestrantes);			
+			ev.setReservas(reservas);
+			
+			r.setsalaReservada(s);
+			
+			daoReserva.inserir(r);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("../comReserva");
+	}
+	
 }

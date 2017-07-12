@@ -12,7 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.Transactional;
 
+@Transactional
 @Entity
 @Table(name = "reserva")
 public class Reserva {
@@ -28,7 +30,7 @@ public class Reserva {
 	@Column
 	private String hora;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sala_id", nullable = false)
 	private Sala salaReservada;
 	
@@ -86,10 +88,6 @@ public class Reserva {
 
 	public void setEvento(Evento evento) {
 		this.evento = evento;
-	}
-
-	public void setSalaReservada(Sala salaReservada) {
-		this.salaReservada = salaReservada;
 	}
 
 	public Reserva(Integer codigoReserva, Date data, String hora, Sala salaReservada, Evento evento) {

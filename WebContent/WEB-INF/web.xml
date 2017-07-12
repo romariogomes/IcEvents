@@ -297,5 +297,14 @@
 	<servlet-name>AgendarEvento</servlet-name>
 	<url-pattern>/evento/agendar</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>FinalizarReserva</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>FinalizarReserva</servlet-name>
+	<url-pattern>/evento/finalizarReserva</url-pattern>
+  </servlet-mapping>
     
 </web-app>

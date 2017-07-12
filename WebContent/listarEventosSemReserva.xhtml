@@ -11,7 +11,7 @@
 		
 		<ui:define name="content">
 			
-			<h2>Gerenciar eventos sem reserva</h2> <a href="cadastroEvento.xhtml"><button id="btnNew" class="btn btn-success">Novo +</button></a>
+			<h2>Gerenciar eventos sem reserva</h2>
 						
 			<table class="table table-hover">
 			
@@ -32,7 +32,7 @@
 						<td id="nomePessoaTbl">${e.tipoEvento}</td>
 						<td align="center" id="codigoPessoaTbl">${e.vagas}</td>
 						<td id="nomePessoaTbl">${e.statusEvento}</td>
-						<td id="emailPessoaTbl"><a href="evento/busca?evento=${e.codigoEvento}"><button type="button" class="btn btn-default">Efetuar reserva</button></a>
+						<td id="emailPessoaTbl"><a href="evento/agendar?evento=${e.codigoEvento}"><button type="button" class="btn btn-default">Efetuar reserva</button></a>
 	    				</td>
 					</tr>
 					
