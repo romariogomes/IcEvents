@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -169,13 +170,20 @@ public class EventoController extends HttpServlet {
 		try {
 		
 			List<Evento> eventos = new ArrayList<Evento>();
+			List<Reserva> eventosReservados = new ArrayList<Reserva>();
 			
 			if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE)) {
 				
-				eventos = daoEvento.buscarPorStatus(StatusEvento.EM_ANDAMENTO);
-				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.INSCRICOES_ABERTAS));
-				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.INSCRICOES_ENCERRADAS));
-				eventos.addAll(daoEvento.buscarPorStatus(StatusEvento.ENCERRADO));
+				eventosReservados = daoReserva.listarTodos();
+				Iterator<Reserva> iterator = eventosReservados.iterator();
+				
+				while (iterator.hasNext()) {
+					Reserva r = iterator.next();
+					if (r.getEvento().getStatusEvento().equals(StatusEvento.RESERVADO)) {
+						iterator.remove();
+					}
+					
+				}
 				
 			}
 			
@@ -187,18 +195,20 @@ public class EventoController extends HttpServlet {
 				
 			}
 			
-			if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE) || p.getTipo().equals(Tipo.ORGANIZADOR)) {
+			if (p == null || p.getTipo().equals(Tipo.PARTICIPANTE)) {
 				
+				request.getSession().setAttribute("listaEventos", eventosReservados);
 				pagina = "../listarEventos.xhtml";
 				
-			} else {
+			}
+			else {
+				request.getSession().setAttribute("listaEventos", eventos);
+				pagina = "../listarEventos.xhtml";
 				
 				if (p.getTipo().equals(Tipo.ADMIN)) {
 					pagina = "../listarEventos_Admin.xhtml";
 				}
 			}
-			
-			request.getSession().setAttribute("listaEventos", eventos);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -422,7 +432,7 @@ public class EventoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("../comReserva");
+		response.sendRedirect("comReserva");
 	}
 	
 }
