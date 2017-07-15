@@ -324,5 +324,14 @@
 	<servlet-name>RemoverParticipacao</servlet-name>
 	<url-pattern>/evento/removerParticipacao</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>ExibirDetalhesEvento</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ExibirDetalhesEvento</servlet-name>
+	<url-pattern>/evento/exibirDetalhes</url-pattern>
+  </servlet-mapping>
     
 </web-app>

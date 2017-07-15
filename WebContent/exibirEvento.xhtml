@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html" >
+      
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">IC-Events - Evento</ui:define>
+		
+		<ui:define name="content">
+		
+			<h2>Detalhes do evento</h2>
+		
+			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../css/project.css" rel="stylesheet" />
+		
+			<form class="form-group" method="post" action="atualizar?evento=${evento.codigoEvento}">
+				
+				<div class="row">
+				
+		        	<div class="col-md-6">
+		        		<div class="form-group">
+		        			<label for="inputTema">Tema</label>
+		        			<input id="inputTema" type="text" class="form-control" name="tema" disabled="disabled" value="${evento.tema}"/>	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+				<div class="row">
+				
+		        	<div class="col-md-6">
+		        		<div class="form-group">
+		        			<label for="inputDescricao">Descrição</label>
+		        			<textarea class="form-control" rows="5" id="inputDescricao" name="descricao" disabled="disabled">${evento.descricao} </textarea>
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+				<div class="row">  
+	         		<div class="col-md-3">     
+		       			<div class="form-group">
+						  <label for="sel1">Tipo do evento</label>
+						  <input id="inputTema" type="text" class="form-control" name="tipoEvento" disabled="disabled" value="${evento.tipoEvento}"/>
+						</div>
+					</div>
+					
+					<div class="col-md-3">     
+		       			<div class="form-group">
+						  <label for="sel1">Status do evento</label>
+						  <input id="inputTema" type="text" class="form-control" name="statusEvento" disabled="disabled" value="${evento.statusEvento}"/>
+						</div>
+					</div>
+					
+	         	</div>	
+	         	
+	         	<div class="row">  
+	         	
+	         		<div class="col-md-2">
+		        		<div class="form-group">
+		        			<label for="inputVagas">Local</label>
+		        			<input id="inputVagas" type="text" class="form-control" name="vagas" disabled="disabled" value="${evento.vagas}"/>	        			
+		    			</div>
+		            </div>
+					
+					<div class="col-md-2">
+		        		<div class="form-group">
+		        			<label for="inputVagas">Data</label>
+		        			<input id="inputVagas" type="text" class="form-control" name="vagas" disabled="disabled" value="${evento.vagas}"/>	        			
+		    			</div>
+		            </div>
+		            
+		            <div class="col-md-2">
+		        		<div class="form-group">
+		        			<label for="inputVagas">Horário</label>
+		        			<input id="inputVagas" type="text" class="form-control" name="vagas" disabled="disabled" value="${evento.vagas}h"/>	        			
+		    			</div>
+		            </div>
+	         		
+	         	</div>
+				
+				<div class="row">  
+					
+					<div class="col-md-2">
+		        		<div class="form-group">
+		        			<label for="inputVagas">Número de vagas</label>
+		        			<input id="inputVagas" type="text" class="form-control" name="vagas" disabled="disabled" value="${evento.vagas}"/>	        			
+		    			</div>
+		            </div>
+		            
+		            <c:if test="${evento.statusEvento == 'INSCRICOES_ABERTAS'}">
+		            	<div class="col-md-2">
+		        		<div class="form-group">
+		        			<label for="inputVagas">Vagas disponíveis</label>
+		        			<input id="inputVagas" type="text" class="form-control" name="vagas" disabled="disabled" value="${evento.vagasDisponiveis}"/>	        			
+		    			</div>
+		            </div>	
+		            </c:if>
+	         		
+	         	</div> <br/>
+				
+		         <button type="submit" class="btn btn-primary">Salvar <span class="glyphicon glyphicon-save" aria-hidden="true"></span></button> &nbsp; &nbsp; 
+		         <div class="btn-group">
+				  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mais opções <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="#">Adicionar Reserva(s)</a></li>
+				    <li><a href="#">Adicionar Palestrante(s)</a></li>
+				    <li><a href="#">Adicionar Organizador(es)</a></li>
+				    <li role="separator" class="divider"></li>
+				    <li><a href="remover?evento=${evento.codigoEvento}">Remover evento <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+				  </ul>
+				</div>
+	             	
+        	</form>
+		
+		</ui:define>
+		
+	</ui:composition>
+	
+</html>

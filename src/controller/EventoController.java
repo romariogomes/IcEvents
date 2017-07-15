@@ -80,6 +80,10 @@ public class EventoController extends HttpServlet {
 			removerEvento(request, response);
 		}
 		
+		if (url.equals("/evento/exibirDetalhes")){
+			exibirDetalhesEvento(request, response);
+		}
+		
 		if (url.equals("/evento/participarDeEvento")){
 			participarDeEvento(request, response);
 		}
@@ -270,6 +274,33 @@ public class EventoController extends HttpServlet {
 		request.getRequestDispatcher("lista").forward(request, response);
 	}
 	
+	
+	protected void exibirDetalhesEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		
+		try {
+		
+			Integer codigo = Integer.parseInt(request.getParameter("evento"));
+			Evento ev = daoEvento.buscarPorId(codigo);
+			
+			ev.setPessoas(pessoas);
+			ev.setPalestrantes(palestrantes);
+			ev.setReservas(reservas);
+			
+			request.setAttribute("evento", ev);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("../exibirEvento.xhtml").forward(request, response);
+	}
+
 	protected void participarDeEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession sessao = request.getSession();
