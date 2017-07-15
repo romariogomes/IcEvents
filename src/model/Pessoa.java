@@ -35,7 +35,7 @@ public class Pessoa {
 	@Enumerated(EnumType.ORDINAL)
 	private Tipo tipo;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "pessoas")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "pessoas")
 	List<Evento> eventos;
 	
 	public Pessoa() {

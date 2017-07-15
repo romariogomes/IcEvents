@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import model.Evento;
+import model.Pessoa;
 import model.StatusEvento;
 
 public class EventoDao{
@@ -103,6 +104,16 @@ public class EventoDao{
 		s = HibernateUtil.getSessionFactory().openSession();
 		t = s.beginTransaction();
 		s.delete(ev);
+		t.commit();
+		s.close();
+		
+	}
+	
+	public void removerParticipante(Pessoa p) throws Exception {
+		
+		s = HibernateUtil.getSessionFactory().openSession();
+		t = s.beginTransaction();
+		s.delete("evento_pessoa", p);
 		t.commit();
 		s.close();
 		

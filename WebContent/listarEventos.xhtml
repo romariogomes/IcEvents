@@ -61,8 +61,26 @@
 	    					</c:if>
 	    					
 	    					<c:if test="${e.evento.statusEvento == 'INSCRICOES_ABERTAS'}">
-	    						<c:if test="${e.evento.vagasDisponiveis le e.evento.vagas}">
-	    							<a href="evento/participarDeEvento?evento=${e.evento.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+	    						<c:choose>
+		    						<c:when test="${!user.eventos.isEmpty()}">
+			    						<c:forEach items="${user.eventos}" var="ue">	
+				    						<c:if test="${e.evento.codigoEvento == ue.codigoEvento}">
+					    						<a href="evento/removerParticipacao?evento=${e.evento.codigoEvento}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button></a>
+				    						</c:if>
+				    					
+			    						</c:forEach>
+		    						</c:when>
+		    						
+		    						<c:otherwise>
+			    						<c:if test="${e.evento.vagasDisponiveis le e.evento.vagas}">
+			    							<a href="evento/participarDeEvento?evento=${e.evento.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+			    						</c:if>
+		    						</c:otherwise>
+	    						</c:choose>
+	    						<c:if test="${user == null}">
+	    							<c:if test="${e.evento.vagasDisponiveis le e.evento.vagas}">
+		    							<a href="evento/participarDeEvento?evento=${e.evento.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+		    						</c:if>
 	    						</c:if>
 	    					</c:if>
 	    					

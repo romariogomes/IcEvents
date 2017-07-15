@@ -315,5 +315,14 @@
 	<servlet-name>MeusEventos</servlet-name>
 	<url-pattern>/evento/meusEventos</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>RemoverParticipacao</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>RemoverParticipacao</servlet-name>
+	<url-pattern>/evento/removerParticipacao</url-pattern>
+  </servlet-mapping>
     
 </web-app>
