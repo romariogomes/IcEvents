@@ -100,6 +100,10 @@ public class EventoController extends HttpServlet {
 			finalizarReserva(request, response);
 		}
 		
+		if (url.equals("/evento/meusEventos")){
+			consultarMeusEventos(request, response);
+		}
+		
 	}
 
 	protected void cadastrarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -433,6 +437,38 @@ public class EventoController extends HttpServlet {
 		}
 		
 		response.sendRedirect("comReserva");
+	}
+	
+	protected void consultarMeusEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		List<Evento> listaEventos = new ArrayList<Evento>();
+//		List<Reserva> reservas = new ArrayList<Reserva>();
+//		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
+//		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		Pessoa p = new Pessoa();
+		
+		try {
+			
+			p = (Pessoa) sessao.getAttribute("user");
+			
+			listaEventos = p.getEventos();
+			
+//			Integer codigo = Integer.parseInt(request.getParameter("evento"));
+//			Evento ev = daoEvento.buscarPorId(codigo);
+			
+//			ev.setPessoas(pessoas);
+//			ev.setPalestrantes(palestrantes);
+//			ev.setReservas(reservas);
+			
+			request.setAttribute("listaEventos", listaEventos);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("../listarMeusEventos.xhtml").forward(request, response);
 	}
 	
 }

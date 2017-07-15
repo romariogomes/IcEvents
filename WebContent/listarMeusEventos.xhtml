@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions" >
+      
+	<ui:composition template="template.xhtml">
+		
+		<ui:define name="title">IC-Events - Lista de eventos</ui:define>
+		
+		<ui:define name="content">
+			
+			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../css/project.css" rel="stylesheet" />
+			
+			<h2>Meus eventos</h2> 
+			
+			<table class="table table-hover">
+			
+				<tr>
+					<th id="emailPessoaTbl">Tema</th>
+					<th id="codigoPessoaTbl">Tipo</th>
+					<th id="codigoPessoaTbl">Data</th>
+					
+					<th id="nomePessoaTbl"></th>
+				</tr>
+				
+				<c:forEach items="${listaEventos}" var="e">	
+					
+					<tr>
+						<c:if test="${user.tipo == 'ORGANIZADOR' || user.tipo == 'ADMIN'}">
+							<td id="emailPessoaTbl">${e.tema}</td>
+							<td id="codigoPessoaTbl">${e.tipoEvento}</td>
+							<td id="codigoPessoaTbl"></td>
+							<td align="center" id="codigoPessoaTbl">${e.vagasDisponiveis} </td>
+							<td id="nomePessoaTbl"><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
+							</td>
+						</c:if>
+						
+						<c:if test="${user.tipo == 'PARTICIPANTE' || user == null}">
+						
+							<td id="emailPessoaTbl">${e.tema}</td>
+							<td id="codigoPessoaTbl">${e.tipoEvento}</td>
+							<td id="nomePessoaTbl"></td>
+							
+							
+							<td id="nomePessoaTbl"><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
+	    					
+	    					<c:if test="${e.statusEvento == 'INSCRICOES_ABERTAS'}">
+	    						
+	    						<a href="evento/participarDeEvento?evento=${e.codigoEvento}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button></a>
+	    						
+	    					</c:if>
+	    					
+	    					</td>
+	    				</c:if>
+					</tr>
+					
+				</c:forEach>
+				
+			</table>
+		</ui:define>
+		
+	</ui:composition>
+	
+</html>

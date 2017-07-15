@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import model.Pessoa;
-import model.Sala;
 
 public class PessoaDao{
 	
@@ -74,6 +73,5 @@ public class PessoaDao{
 		s.close();
 		
 	}
-	
-	
+
 }

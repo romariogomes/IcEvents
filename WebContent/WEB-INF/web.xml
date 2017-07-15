@@ -306,5 +306,14 @@
 	<servlet-name>FinalizarReserva</servlet-name>
 	<url-pattern>/evento/finalizarReserva</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>MeusEventos</servlet-name>
+	<servlet-class>controller.EventoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>MeusEventos</servlet-name>
+	<url-pattern>/evento/meusEventos</url-pattern>
+  </servlet-mapping>
     
 </web-app>
