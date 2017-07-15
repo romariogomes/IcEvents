@@ -102,19 +102,59 @@
 	         		
 	         	</div> <br/>
 				
-		         <button type="submit" class="btn btn-primary">Salvar <span class="glyphicon glyphicon-save" aria-hidden="true"></span></button> &nbsp; &nbsp; 
-		         <div class="btn-group">
-				  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mais opções <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li><a href="#">Adicionar Reserva(s)</a></li>
-				    <li><a href="#">Adicionar Palestrante(s)</a></li>
-				    <li><a href="#">Adicionar Organizador(es)</a></li>
-				    <li role="separator" class="divider"></li>
-				    <li><a href="remover?evento=${evento.codigoEvento}">Remover evento <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
-				  </ul>
-				</div>
+				<c:if test="${user == null}">
+					<a href="lista"><button type="button" class="btn btn-default"> Voltar</button></a>&nbsp; &nbsp;
+					<c:if test="${evento.statusEvento == 'INSCRICOES_ABERTAS'}">
+						<a href="participarDeEvento?evento=${evento.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>&nbsp; &nbsp;
+					</c:if>
+				</c:if>
+		        
+		        <c:if test="${user.tipo == 'PARTICIPANTE'}">
+		        	<c:choose>
+ 						<c:when test="${!user.eventos.isEmpty()}">
+  							<c:forEach items="${user.eventos}" var="ue">	
+   								<c:if test="${evento.codigoEvento == ue.codigoEvento}">
+    								<a href="removerParticipacao?evento=${evento.codigoEvento}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar participação</button></a>
+   								</c:if>
+  							</c:forEach>
+ 						</c:when>
+ 						
+ 						<c:otherwise>
+	  						<c:if test="${evento.vagasDisponiveis le evento.vagas}">
+	  							<a href="participarDeEvento?evento=${evento.codigoEvento}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Participar</button></a>
+	  						</c:if>
+ 						</c:otherwise>
+					</c:choose>
+		        </c:if>
+		        
+		        <c:if test="${user.tipo == 'ORGANIZADOR'}">
+		        	<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mais opções <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#">Adicionar Palestrante(s)</a></li>
+					    <li><a href="#">Adicionar Organizador(es)</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="remover?evento=${evento.codigoEvento}">Remover evento <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+					  </ul>
+					</div>
+		        </c:if>   
+		        
+		        <c:if test="${user.tipo == 'ADMIN'}">
+		        	<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mais opções <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#">Adicionar Reserva(s)</a></li>
+					    <li><a href="#">Adicionar Palestrante(s)</a></li>
+					    <li><a href="#">Adicionar Organizador(es)</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="remover?evento=${evento.codigoEvento}">Remover evento <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+					  </ul>
+					</div>
+		        </c:if> 
 	             	
         	</form>
 		
