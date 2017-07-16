@@ -35,6 +35,9 @@
 						<td id="nomePessoaTbl">${e.data}</td>
 						<td id="codigoPessoaTbl">${e.hora}</td>
 						<td id="codigoPessoaTbl">${e.salaReservada.numero}</td>
+						<td id="emailPessoaTbl"><a href="evento/editarReserva?reserva=${e.codigoReserva}"><button type="button" class="btn btn-default">Editar</button></a> &nbsp; &nbsp;
+	    					<a href="evento/removerReserva?reserva=${e.codigoReserva}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></a>
+	    				</td>
 					</tr>
 					
 				</c:forEach>

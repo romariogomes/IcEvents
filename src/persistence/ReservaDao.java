@@ -1,15 +1,18 @@
 package persistence;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.fabric.xmlrpc.base.Array;
 
+import model.Evento;
 import model.Recurso;
 import model.Reserva;
 import model.Sala;
@@ -86,6 +89,30 @@ public class ReservaDao{
 		s.delete(r);
 		t.commit();
 		s.close();
+		
+	}
+	
+	public Reserva buscarPorEvento(Evento evento) throws Exception {
+		
+		Reserva r = new Reserva();
+		
+		s = HibernateUtil.getSessionFactory().openSession();
+		t = s.beginTransaction();
+		
+		Query q = s.createQuery("FROM Reserva r WHERE r.evento.tema = :tema");
+		q.setParameter("tema", evento.getTema());
+		r = (Reserva) q.uniqueResult(); 
+		
+		Sala sl = new Sala();
+		sl.setCodigoSala(r.getSalaReservada().getCodigoSala());
+		sl.setNumero(r.getSalaReservada().getNumero());
+		sl.setCapacidade(r.getSalaReservada().getCapacidade());
+		sl.setRecursos(r.getSalaReservada().getRecursos());
+		r.setsalaReservada(sl);
+		
+		s.close();
+		
+		return r;
 		
 	}
 	

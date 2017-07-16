@@ -112,6 +112,10 @@ public class EventoController extends HttpServlet {
 			consultarMeusEventos(request, response);
 		}
 		
+		if (url.equals("/evento/removerReserva")){
+			removerReserva(request, response);
+		}
+		
 	}
 
 	protected void cadastrarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -121,17 +125,22 @@ public class EventoController extends HttpServlet {
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		Pessoa p = new Pessoa();
 		
 		try {
+				p = (Pessoa) sessao.getAttribute("user");
 				
 				Evento ev = new Evento(null, request.getParameter("tema"), request.getParameter("descricao"), Integer.parseInt(request.getParameter("vagas")));
 				
 				ev.setTipoEvento(TipoEvento.valueOf(request.getParameter("tipoEvento")));
 				ev.setStatusEvento(StatusEvento.EM_CRIACAO);
 				
+				pessoas.add(p);
+				
 				ev.setPessoas(pessoas);
 				ev.setPalestrantes(palestrantes);
 				ev.setReservas(reservas);
+				
 				ev.setVagasDisponiveis(ev.getVagas());
 				
 				daoEvento.inserir(ev);
@@ -281,17 +290,21 @@ public class EventoController extends HttpServlet {
 		
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		List<Palestrante> palestrantes = new ArrayList<Palestrante>();
-		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		
 		try {
 		
 			Integer codigo = Integer.parseInt(request.getParameter("evento"));
 			Evento ev = daoEvento.buscarPorId(codigo);
 			
-			ev.setPessoas(pessoas);
 			ev.setPalestrantes(palestrantes);
+			reservas.add(daoReserva.buscarPorEvento(ev));
+
 			ev.setReservas(reservas);
 			
+			request.setAttribute("local", ev.getReservas().get(0).getSalaReservada().getNumero());
+			request.setAttribute("data", ev.getReservas().get(0).getData());
+			request.setAttribute("horario", ev.getReservas().get(0).getHora());
+			request.setAttribute("organizador", ev.getPessoas().get(0).getNome());
 			request.setAttribute("evento", ev);
 			
 		} catch (Exception e) {
@@ -565,5 +578,22 @@ public class EventoController extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("../listarMeusEventos.xhtml").forward(request, response);
+	}
+	
+	protected void removerReserva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		try {
+			
+			Integer codigo = Integer.parseInt(request.getParameter("reserva"));
+			Reserva r = daoReserva.buscarPorId(codigo);
+			daoReserva.remover(r);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("comReserva").forward(request, response);
 	}
 }

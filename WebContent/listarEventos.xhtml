@@ -37,6 +37,7 @@
 							<td id="codigoPessoaTbl"></td>
 							<td align="center" id="codigoPessoaTbl">${e.vagasDisponiveis} </td>
 							<td id="nomePessoaTbl"><a href="evento/exibirDetalhes?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
+		    					<a href="evento/remover?evento=${e.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></a>
 							</td>
 						</c:if>
 						
@@ -46,7 +47,7 @@
 							<td id="codigoPessoaTbl">${e.evento.tipoEvento}</td>
 							<td id="nomePessoaTbl">${e.data}</td>
 							<td align="center" id="codigoPessoaTbl">${e.evento.vagasDisponiveis} </td>
-							<td id="nomePessoaTbl"><a href="evento/exibirDetalhes?evento=${e.evento.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais informações</button></a> &nbsp; &nbsp;
+							<td id="nomePessoaTbl"><a href="evento/exibirDetalhes?evento=${e.evento.codigoEvento}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Mais info</button></a> &nbsp; &nbsp;
 	    					
 	    					<c:if test="${e.evento.statusEvento == 'INSCRICOES_ENCERRADAS'}"> 
 	    						<a href="#"><button disabled="disabled" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Inscrições encerradas</button></a>
@@ -57,7 +58,7 @@
 	    					</c:if>
 	    					
 	    					<c:if test="${e.evento.statusEvento == 'EM_ANDAMENTO'}">
-	    						<a href="#"><button disabled="disabled" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Evento em andamento</button></a>
+	    						<a href="#"><button disabled="disabled" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Em andamento</button></a>
 	    					</c:if>
 	    					
 	    					<c:if test="${e.evento.statusEvento == 'INSCRICOES_ABERTAS'}">
