@@ -85,6 +85,14 @@
     <url-pattern>/usuario/alterarSenha</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>ListarEventosUsuario</servlet-name>
+    <servlet-class>controller.PessoaController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListarEventosUsuario</servlet-name>
+    <url-pattern>/usuario/eventosUsuario</url-pattern>
+  </servlet-mapping>
   
   
   <servlet>

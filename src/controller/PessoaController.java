@@ -69,6 +69,10 @@ public class PessoaController extends HttpServlet {
 		if (url.equals("/usuario/alterarSenha")){
 			alterarSenha(request, response);
 		}
+		
+		if (url.equals("/usuario/eventosUsuario")){
+			listarEventosUsuario(request, response);
+		}
 	}
 	
 	protected void cadastrarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -255,6 +259,24 @@ public class PessoaController extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+	
+	protected void listarEventosUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		
+		try {
+			
+			Integer codigo = Integer.parseInt(request.getParameter("usuario"));
+			Pessoa p = daoPessoa.buscarPorId(codigo);
+			request.getSession().setAttribute("listaEventos", p.getEventos());
+			request.getSession().setAttribute("nomeUsuario", p.getNome());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("../eventosUsuario.xhtml");
 	}
 
 }
