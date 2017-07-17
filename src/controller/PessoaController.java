@@ -65,6 +65,10 @@ public class PessoaController extends HttpServlet {
 		if (url.equals("/usuario/editarDados")){
 			editarDadosUsuario(request, response);
 		}
+		
+		if (url.equals("/usuario/alterarSenha")){
+			alterarSenha(request, response);
+		}
 	}
 	
 	protected void cadastrarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -205,6 +209,52 @@ public class PessoaController extends HttpServlet {
 		}
 		
 		response.sendRedirect("../index.xhtml");
+	}
+	
+	protected void alterarSenha(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession sessao = request.getSession();
+		Pessoa p = new Pessoa();
+		
+		try {
+			
+			p = (Pessoa) sessao.getAttribute("user");
+			
+			String senha = request.getParameter("senha");
+			String confirmacaoSenha = request.getParameter("confsenha");
+			
+			if (senha.equals(confirmacaoSenha)) {
+				
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				byte[] crip = md.digest(confirmacaoSenha.getBytes());
+				BASE64Encoder enc = new BASE64Encoder();
+				
+				if (p.getTipo().equals(Tipo.ADMIN)) {
+					
+					Integer codigo = Integer.parseInt(request.getParameter("usuario"));
+					Pessoa usuario = new Pessoa();
+					
+					usuario = daoPessoa.buscarPorId(codigo);
+					usuario.setSenha(enc.encode(crip));
+					daoPessoa.atualizar(usuario);
+					
+					response.sendRedirect("lista");
+					
+				} else {
+					p.setSenha(enc.encode(crip));
+					daoPessoa.atualizar(p);
+					response.sendRedirect("../index.xhtml");
+				}
+				
+			} else {
+				request.setAttribute("msg", "Senha e confirmação de senha não conferem");
+				request.getRequestDispatcher("../alterarSenha.xhtml").forward(request, response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

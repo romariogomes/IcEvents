@@ -76,6 +76,15 @@
     <url-pattern>/usuario/editarDados</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>AlterarSenha</servlet-name>
+    <servlet-class>controller.PessoaController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AlterarSenha</servlet-name>
+    <url-pattern>/usuario/alterarSenha</url-pattern>
+  </servlet-mapping>
+  
   
   
   <servlet>

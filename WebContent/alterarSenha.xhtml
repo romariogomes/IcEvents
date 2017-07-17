@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
+      
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">IC-Events - Alterar senha</ui:define>
+		
+		<ui:define name="content">
+		
+			<h2>Alterar senha</h2>
+			
+			<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../css/project.css" rel="stylesheet" />
+			
+			${msg}
+			
+			<form class="form-group" method="post" action="usuario/alterarSenha?usuario=${request.getParameter('usuario')}">
+		
+				<div class="row">
+				
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputNome">Nova senha</label>
+		        			<input id="inputNome" type="password" class="form-control" name="senha" required="required" />	        			
+		    			</div>
+		            </div>
+		       
+				</div>
+				
+		         <div class="row">       
+		       
+		        	<div class="col-md-4">
+		        		<div class="form-group">
+		        			<label for="inputEmail">Confirme sua nova senha</label>
+		        			<input id="inputEmail" type="password" class="form-control" name="confsenha" required="required"/>
+		    			</div>
+		            </div>
+		          
+		         </div>
+		         
+		         <button type="submit" class="btn btn-primary">Salvar <span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+	             	
+        	</form>
+		
+		</ui:define>
+		
+	</ui:composition>
+	
+</html>

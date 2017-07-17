@@ -22,6 +22,8 @@ public class ControleAcessoDAO {
 		c.add(Restrictions.and(Restrictions.eq("email", email), Restrictions.eq("senha", senha)));
 		p = (Pessoa) c.uniqueResult();
 		
+		s.close();
+		
 		return p;
 		
 	}
